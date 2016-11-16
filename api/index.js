@@ -17,11 +17,11 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
-app.use('/', routes);
+app.use('/', routes); // This is what tells the server what routes to use
 
 
 
-
+// Starts listening on the port in config.js
 app.listen(config.server.port, () => {
   console.log(`Magic happens on port ${config.server.port}`);
 });
