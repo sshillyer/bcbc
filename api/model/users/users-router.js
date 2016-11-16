@@ -20,20 +20,6 @@ router.route('/').get((req,res,next) => {
 
 
 // POST <baseURL>/users/
-router.route('/').post((req,res,next) => {
-	// TODO: Implement	
-});
-
-// PUT <baseURL>/users/
-router.route('/').put((req,res,next) => {
-	// TODO: Implement	
-});
-
-// DELETE <baseURL>/users/
-router.route('/').delete((req,res,next) => {
-	// TODO: Implement	
-});
-
 router.route('/').post((req, res, next) => {
 	var userName = req.body.username;
 
@@ -59,7 +45,38 @@ router.route('/').post((req, res, next) => {
 	});
 });
 
+// PUT <baseURL>/users/
+router.route('/').put((req,res,next) => {
+	// TODO: Implement	
+});
 
+// DELETE <baseURL>/users/
+router.route('/').delete((req,res,next) => {
+	// TODO: Implement	
+});
+
+
+
+
+/***************************************************************************************
+<baseURL>/users/:username
+CRUD handled by GET, POST, PUT, DELETE routes
+***************************************************************************************/
+// GET /users/:username
+// Returns JSON of user by username, populating out the executor
+router.route('/:username').get((req, res, next) => {
+	// In the .populate call, first string the the User attribute to expand, 
+	// second string is space-dilineated string of attributes to fill in to the expanded property
+	User.findOne({username: req.params.username})
+	.populate('executor', 'title body') 
+	.then(doc => res.status(200).json(doc))
+	.catch(err => next(err));
+});
+
+
+
+
+// Potential login route concept
 // router.route('/login').post((req, res, next) => {
 // 		// search for the username
 
@@ -71,16 +88,9 @@ router.route('/').post((req, res, next) => {
 // });
 
 
-// GET /users/:username
-// Returns JSON of user by username, populating out the executor
-router.route('/:username').get((req, res, next) => {
-	// In the .populate call, first string the the User attribute to expand, 
-	// second string is space-dilineated string of attributes to fill in to the expanded property
-	User.findOne({username: req.params.username})
-	.populate('executor', 'title body') 
-	.then(doc => res.status(200).json(doc))
-	.catch(err => next(err));
-});
+
+
+
 
 
 module.exports = router;

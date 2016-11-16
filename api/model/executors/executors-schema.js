@@ -21,7 +21,6 @@ Executors.find(function(err, executors) {
 	Executors.create({
 		title: "execTitle",
 		body: "execBody",
-		// execut
 	}, function(err, res) {
 			if (err) console.log(err); // if an error log it
 			else console.log(res); // else log result (what we inserted)
