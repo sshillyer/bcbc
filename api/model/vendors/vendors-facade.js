@@ -1,3 +1,5 @@
+"use strict";
+
 const Model = require('../../lib/facade');
 const vendorsSchema  = require('./vendors-schema');
 

@@ -1,3 +1,5 @@
+"use strict";
+
 class Facade {
   constructor(Schema) {
     this.Schema = Schema;

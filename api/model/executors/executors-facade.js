@@ -1,3 +1,6 @@
+"use strict";
+
+
 const Model = require('../../lib/facade');
 const executorsSchema  = require('./executors-schema');
 

@@ -1,3 +1,6 @@
+"use strict";
+
+
 const controller = require('./executors-controller');
 const Router = require('express').Router;
 const router = new Router();
