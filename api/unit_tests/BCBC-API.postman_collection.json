@@ -1,0 +1,83 @@
+{
+	"variables": [],
+	"info": {
+		"name": "BCBC-API",
+		"_postman_id": "71c7587a-8790-47f7-2e37-1018ee87511a",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users/ GET",
+			"request": {
+				"url": "localhost:8080/users",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "newuser",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "newpass",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Get users"
+			},
+			"response": []
+		},
+		{
+			"name": "users/ post",
+			"request": {
+				"url": "localhost:8080/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "newguywithpw",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "email",
+							"value": "hi@here.org",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "hi",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Get users"
+			},
+			"response": []
+		}
+	]
+}
