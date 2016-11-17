@@ -18,7 +18,8 @@
     "helmet": "^2.1.2",
     "lodash": "^4.15.0",
     "mongoose": "^4.5.9",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "nodemon": "^1.11.0"
   },
   "devDependencies": {
     "eslint": "^3.2.2",

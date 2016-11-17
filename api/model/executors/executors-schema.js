@@ -5,8 +5,16 @@ const Schema   = mongoose.Schema;
 
 
 const executorsSchema = new Schema({
-  title: { type: String, required: true },
-  body:  { type: String }
+  userName: { type: String, required: true },
+  name: { type: String, required: true },
+  password: { type: String, required: true },
+  address: {
+  	street1: String,
+  	street2: String
+  	city: String,
+  	stateAbbrev: String,
+  	zip: Number,
+  },
 });
 
 
@@ -19,8 +27,15 @@ Executors.find(function(err, executors) {
 	if(executors.length) return;
 
 	Executors.create({
-		title: "execTitle",
-		body: "execBody",
+		userName: "h4humans",
+		name: "Humans 4 Humans",
+		address: {
+			street1: "123 SW 1st Ave",
+			street2: "Ste 300",
+			city: "Portland",
+			stateAbbrev: "OR",
+			zip: 97214,
+		},
 	}, function(err, res) {
 			if (err) console.log(err); // if an error log it
 			else console.log(res); // else log result (what we inserted)

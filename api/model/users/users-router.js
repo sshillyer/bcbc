@@ -68,7 +68,7 @@ router.route('/:username').get((req, res, next) => {
 	// In the .populate call, first string the the User attribute to expand, 
 	// second string is space-dilineated string of attributes to fill in to the expanded property
 	User.findOne({username: req.params.username})
-	.populate('executor', 'title body') 
+	.populate('executor', 'name') // Get the 'name' property of the executor from db
 	.then(doc => res.status(200).json(doc))
 	.catch(err => next(err));
 });
