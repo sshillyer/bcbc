@@ -263,6 +263,171 @@
 			"response": []
 		},
 		{
+			"name": "users/{username}/ POST",
+			"request": {
+				"url": "localhost:8080/users/bob",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "username",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name.first",
+							"value": "Robert",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name.last",
+							"value": "Shoemaker",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "unsafe",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.email",
+							"value": "bob@shoes.com",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone",
+							"value": "555-555-5555",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "balance",
+							"value": "50",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/{username} PUT",
+			"request": {
+				"url": "localhost:8080/users/username",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "username",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "superSafePW123!@d",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.email",
+							"value": "bob@shoes.com",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/{username} DELETE",
+			"request": {
+				"url": "localhost:8080/users/user1",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "usernameUpdated",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name.first",
+							"value": "Robert",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name.last",
+							"value": "Shoemaker",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "unsafe",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.email",
+							"value": "bob@shoes.com",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone",
+							"value": "555-555-5555",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "balance",
+							"value": "50",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "executors/ GET",
 			"request": {
 				"url": "localhost:8080/executors",
