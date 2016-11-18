@@ -101,6 +101,44 @@ router.route('/:username').get((req, res, next) => {
 });
 
 
+// POST <baseURL>/users/{username}/
+// Invalid route
+// UNIT TEST STATUS: Passing
+router.route('/:username').post((req,res,next) => {
+	var errorCode = 405; // Look up HTTP respone for 'bad request' or similar
+	var errResponse = {
+		'developerMessage' : "POST requests to */users/{username} are not allowed. To create new user, POST to /users/  and to edit, PUT to /users/{username}",
+		'userMessage': "Error processing form. Please contact site administrator.",
+		'errorCode' : errorCode, 
+		"moreInfo" : "http://github.com/sshillyer/bcbc"
+	};
+
+	res.status(errorCode).json(errResponse);
+});
+
+
+// PUT <baseURL>/users/{username}/
+// Update users document for the users with the username in the URI
+// UNIT TEST STATUS: Passing.
+router.route('/:username').put((req,res,next) => {
+	var userName = req.params.username;
+
+	User.findOne( {'username': userName}, function(err, result) {
+			// IF username is found, update the record with the req.body data
+			if (result) {
+				var execId = result._id;
+				console.log("Updated user with _id: " + execId);
+				req.params.id = execId;
+				controller.update(req, res, next);
+			}
+			// If username not found, return errorMessage JSON 
+			else {
+				res.status(400).json({
+					errorMessage: 'Username not found',
+				});
+			}
+		});
+});
 
 
 // Potential login route concept
