@@ -141,6 +141,35 @@ router.route('/:username').put((req,res,next) => {
 });
 
 
+// DELETE <baseURL>/users/{username}/
+// Delete the users with the username in the URI
+// UNIT TEST STATUS: Passing
+// TODO: Need to ensure we sweep through executors and delete the back-references pointing to their user(s) ObjectID(s)
+router.route('/:username').delete((req,res,next) => {
+	var userName = req.params.username;
+
+	User.findOne( {'username': userName}, function(err, result) {
+		// IF username is found, delete references to it in the users collection, then delete the executor
+		if (result) {
+
+			// TODO: Use .pull() or .pullall() to delete all references to this User from the Executors that reference it
+			// TODO: Check my users logic in /randomancer-api on github, should work here as well
+
+			var execId = result._id;
+			console.log("Deleting user with _id: " + execId);
+			req.params.id = execId;
+			controller.remove(req, res, next);
+		}
+		// If username not found, return errorMessage JSON 
+		else {
+			res.status(400).json({
+				errorMessage: 'Username not found',
+			});
+		}
+	});
+});
+
+
 // Potential login route concept
 // router.route('/login').post((req, res, next) => {
 // 		// search for the username
