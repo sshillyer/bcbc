@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const Schema   = mongoose.Schema;
-
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const executorsSchema = new Schema({
   username: { type: String, required: true },
@@ -19,12 +19,12 @@ const executorsSchema = new Schema({
   	phone: [String], // allow for multiples?
   	email: [String], // allow for multiples?
   },
-
+  benefactors: { type: ObjectId, ref: 'Users'},
 });
 
 // TODO: Check the syntax for defining this function
 // executorSchema.getIdFromUsername = new function(username) {
-	
+
 // }
 
 const Executors = mongoose.model('Executors', executorsSchema); 

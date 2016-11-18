@@ -6,9 +6,19 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const usersSchema = new Schema({
   username: { type: String, required: true },
-  email:  { type: String },
+  name: {
+  	first: { type: String},
+  	last: { type: String},
+  	middle: { type: String},
+  	alias: { type: String},
+  },
   password: { type: String },
-  executor: { type: ObjectId, ref: 'Executors'} // Assumes each user has only one executor
+  contact: {
+  	email:  { type: String },
+  	phone: { type: String },	
+  },
+  balance: Number,
+  executor: { type: ObjectId, ref: 'Executors'}, // Assumes each user has only one executor
 });
 
 
@@ -23,7 +33,6 @@ User.find(function(err, users) {
 
 	User.create({
 		username: "user1",
-		email: "hi@gmail.com",
 		// execut
 	}, function(err, res) {
 			if (err) console.log(err); // if an error log it
