@@ -9,11 +9,11 @@ const executorsSchema = new Schema({
   name: { type: String, required: true },
   password: { type: String, required: true },
   address: {
-  	street1: String,
-  	street2: String,
-  	city: String,
-  	stateAbbrev: String,
-  	zip: Number,
+  	street1: {type: String },
+  	street2: {type: String },
+  	city: {type: String },
+  	stateAbbrev: {type: String },
+  	zip: {type: Number },
   },
   contact: {
   	phone: [String], // allow for multiples?

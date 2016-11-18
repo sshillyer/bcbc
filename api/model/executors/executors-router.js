@@ -15,9 +15,9 @@ CRUD handled by GET, POST, PUT, DELETE routes
 ***************************************************************************************/
 
 // GET <baseURL>/executors/
+// Return JSON of all executors
+// UNIT TEST STATUS: Passing
 router.route('/').get((req,res,next) => {
-	// Send back JSON of all executors
-	// TODO: Execute unit test in POSTMAN
 	controller.find(req, res, next);
 	
 	// Note: In theory we would authenticate the user as administrator because this
@@ -27,10 +27,26 @@ router.route('/').get((req,res,next) => {
 
 
 // POST <baseURL>/executors/
+// Create a new executor entry in database
+// UNIT TEST STATUS: Passing
+// TODO: Verify required fields are passed in (username, name, password) -- see schema
 router.route('/').post((req,res,next) => {
-	if (req.body) {
-		// TODO: Implement unit test for creating an executor
-		// TODO: Validate executor's username is unique and that each required
+	var userName = req.body.username;
+	var bodyHasRequiredFields = (req.body.username && req.body.name && req.body.password);
+
+	if (bodyHasRequiredFields) {
+		Executor.findOne( {'username': userName}, function(err, result) {
+			// IF username is not taken, create executor with username passed in
+			if (!result) {
+				controller.create(req, res, next);
+			}
+			// Otherwise 
+			else {
+				res.status(400).json({
+					errorMessage: 'Username not unique',
+				});
+			}
+		});
 	}
 
 	// If no body sent, return error message
@@ -38,7 +54,7 @@ router.route('/').post((req,res,next) => {
 		// TODO: Create empty POST unit test and verify works
 		var errorCode = 400; // Look up HTTP respone for 'bad request' or similar
 		var errResponse = {
-			'developerMessage' : "POST requests to */executors/ must include a req.body",
+			'developerMessage' : "POST requests to */executors/ must include a req.body.username, req.body.name, and req.body.password",
 			'userMessage': "Information missing in your signup request",
 			'errorCode' : errorCode, 
 			"moreInfo" : "http://github.com/sshillyer/bcbc"
@@ -54,7 +70,7 @@ router.route('/').post((req,res,next) => {
 router.route('/').put((req,res,next) => {
 	// TODO: Test route and write POSTMAN unit test
 	// TODO: Create empty POST unit test and verify works
-	var errorCode = 400; // Look up HTTP respone for 'bad request' or similar
+	var errorCode = 405; // Look up HTTP respone for 'bad request' or similar
 	var errResponse = {
 		'developerMessage' : "PUT requests to */executors/ are not allowed. Specify an executor username at the end of route to update record. Example: /executor/h2human/  would update executor with username 'h2human'",
 		'userMessage': "Error processing form. Please contact site administrator.",
@@ -71,7 +87,7 @@ router.route('/').put((req,res,next) => {
 router.route('/').delete((req,res,next) => {
 	// TODO: Test route and write POSTMAN unit test
 	// TODO: Create empty POST unit test and verify works
-	var errorCode = 400; // Look up HTTP respone for 'bad request' or similar
+	var errorCode = 405; // Look up HTTP respone for 'bad request' or similar
 	var errResponse = {
 		'developerMessage' : "DELETE requests to */executors/ are not allowed. Specify an executor username at the end of route to update record. Example: /executor/h2human/  would delete executor with username 'h2human'",
 		'userMessage': "Error processing form. Please contact site administrator.",

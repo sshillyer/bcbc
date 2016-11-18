@@ -41,10 +41,12 @@ router.route('/').post((req, res, next) => {
 			console.log(req.body.email);
 		}
 		// If username is taken, set status and errorMessage sent to user in JSON
-		else // username already taken
+		else {
+		// username already taken
 			res.status(400).json({
 				errorMessage: 'Username not unique',
 			});
+		}
 	});
 });
 
@@ -88,6 +90,7 @@ CRUD handled by GET, POST, PUT, DELETE routes
 ***************************************************************************************/
 // GET /users/:username
 // Returns JSON of user by username, populating out the executor
+// UNIT TEST STATUS: ??
 router.route('/:username').get((req, res, next) => {
 	// In the .populate call, first string the the User attribute to expand, 
 	// second string is space-dilineated string of attributes to fill in to the expanded property
