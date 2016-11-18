@@ -107,8 +107,7 @@ CRUD handled by GET, POST, PUT, DELETE routes
 
 // GET <baseURL>/executors/{username}/
 // Retrieve details about an executor by looking up username
-// TODO: Maybe should be a querystring (which might be handled by our basic GET already)
-//       /executors?username=h4humans   
+// UNIT TEST STATUS: Passing
 router.route('/:username').get((req,res,next) => {
 	req.query.username = req.params.username; // try this??
 	controller.findOne(req, res, next);
@@ -117,10 +116,11 @@ router.route('/:username').get((req,res,next) => {
 
 // POST <baseURL>/executors/{username}/
 // Invalid route
+// UNIT TEST STATUS: Passing
 router.route('/:username').post((req,res,next) => {
 	// TODO: Test route and write POSTMAN unit test
 	// TODO: Create empty POST unit test and verify works
-	var errorCode = 400; // Look up HTTP respone for 'bad request' or similar
+	var errorCode = 405; // Look up HTTP respone for 'bad request' or similar
 	var errResponse = {
 		'developerMessage' : "POST requests to */executors/{username} are not allowed. To create new user, POST to /executors/  and to edit, PUT to /executors/{username}",
 		'userMessage': "Error processing form. Please contact site administrator.",
