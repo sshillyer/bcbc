@@ -25,7 +25,7 @@ router.route('/').get((req,res,next) => {
 
 
 // POST <baseURL>/users/
-// Adds the user in the request.body JSOn to the database
+// Adds the user in the request.body JSON to the database, returns inserted user
 // UNIT TEST STATUS: Passing.
 router.route('/').post((req, res, next) => {
 	var userName = req.body.username;
@@ -48,9 +48,21 @@ router.route('/').post((req, res, next) => {
 	});
 });
 
+
 // PUT <baseURL>/users/
+// Invalid route
+// UNIT TEST STATUS: Passing
 router.route('/').put((req,res,next) => {
-	// TODO: Implement	
+	// TODO: Create empty POST unit test and verify works
+	var errorCode = 405;
+	var errResponse = {
+		'developerMessage' : "PUT requests to */users/ are not allowed. Specify a user's username at the end of route to update record. Example: /users/jshoemaker/  would update user with username 'jshoemaker'",
+		'userMessage': "Error processing form. Please contact site administrator.",
+		'errorCode' : errorCode, 
+		"moreInfo" : "http://github.com/sshillyer/bcbc"
+	};
+
+	res.status(errorCode).json(errResponse);
 });
 
 // DELETE <baseURL>/users/
