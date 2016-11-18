@@ -5,7 +5,7 @@ const Schema   = mongoose.Schema;
 
 
 const executorsSchema = new Schema({
-  userName: { type: String, required: true },
+  username: { type: String, required: true },
   name: { type: String, required: true },
   password: { type: String, required: true },
   address: {
@@ -15,6 +15,11 @@ const executorsSchema = new Schema({
   	stateAbbrev: String,
   	zip: Number,
   },
+  contact: {
+  	phone: [String], // allow for multiples?
+  	email: [String], // allow for multiples?
+  },
+
 });
 
 

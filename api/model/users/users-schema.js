@@ -8,7 +8,7 @@ const usersSchema = new Schema({
   username: { type: String, required: true },
   email:  { type: String },
   password: { type: String },
-  executor: { type: ObjectId, ref: 'Executors'}
+  executor: { type: ObjectId, ref: 'Executors'} // Assumes each user has only one executor
 });
 
 

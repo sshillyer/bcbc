@@ -49,15 +49,45 @@ router.route('/').post((req,res,next) => {
 
 
 // PUT <baseURL>/executors/
+// Invalid route - send back appropriate error response
 router.route('/').put((req,res,next) => {
-	// TODO: Implement	
+	// TODO: Test route and write POSTMAN unit test
+	// TODO: Create empty POST unit test and verify works
+	var errorCode = 400; // Look up HTTP respone for 'bad request' or similar
+	var errResponse = {
+		'developerMessage' : "PUT requests to */executors/ are not allowed. Specify an executor username at the end of route to update record. Example: /executor/h2human/  would update executor with username 'h2human'",
+		'userMessage': "Error processing form. Please contact site administrator.",
+		'errorCode' : errorCode, 
+		"moreInfo" : "http://github.com/sshillyer/bcbc"
+	};
+
+	res.status(errorCode).json(errResponse);
 });
 
 
 // DELETE <baseURL>/executors/
+// Invalid route - send back appropriate error response
 router.route('/').delete((req,res,next) => {
-	// TODO: Implement	
+	// TODO: Test route and write POSTMAN unit test
+	// TODO: Create empty POST unit test and verify works
+	var errorCode = 400; // Look up HTTP respone for 'bad request' or similar
+	var errResponse = {
+		'developerMessage' : "DELETE requests to */executors/ are not allowed. Specify an executor username at the end of route to update record. Example: /executor/h2human/  would delete executor with username 'h2human'",
+		'userMessage': "Error processing form. Please contact site administrator.",
+		'errorCode' : errorCode, 
+		"moreInfo" : "http://github.com/sshillyer/bcbc"
+	};
+
+	res.status(errorCode).json(errResponse);
 });
+
+
+
+/***************************************************************************************
+<baseURL>/executors/
+CRUD handled by GET, POST, PUT, DELETE routes
+***************************************************************************************/
+
 
 
 module.exports = router;
