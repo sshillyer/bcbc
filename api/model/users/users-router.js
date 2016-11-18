@@ -53,7 +53,6 @@ router.route('/').post((req, res, next) => {
 // Invalid route
 // UNIT TEST STATUS: Passing
 router.route('/').put((req,res,next) => {
-	// TODO: Create empty POST unit test and verify works
 	var errorCode = 405;
 	var errResponse = {
 		'developerMessage' : "PUT requests to */users/ are not allowed. Specify a user's username at the end of route to update record. Example: /users/jshoemaker/  would update user with username 'jshoemaker'",
@@ -66,8 +65,18 @@ router.route('/').put((req,res,next) => {
 });
 
 // DELETE <baseURL>/users/
+// Invalid route - do not want to code into API a "delete all users" route
+// UNIT TEST STATUS: Passing
 router.route('/').delete((req,res,next) => {
-	// TODO: Implement	
+	var errorCode = 405;
+	var errResponse = {
+		'developerMessage' : "DELETE requests to */users/ are not allowed. Specify a user's username at the end of route to delete record.",
+		'userMessage': "Error processing form. Please contact site administrator.",
+		'errorCode' : errorCode, 
+		"moreInfo" : "http://github.com/sshillyer/bcbc"
+	};
+
+	res.status(errorCode).json(errResponse);
 });
 
 
