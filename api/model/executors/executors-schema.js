@@ -10,7 +10,7 @@ const executorsSchema = new Schema({
   password: { type: String, required: true },
   address: {
   	street1: String,
-  	street2: String
+  	street2: String,
   	city: String,
   	stateAbbrev: String,
   	zip: Number,
@@ -22,6 +22,10 @@ const executorsSchema = new Schema({
 
 });
 
+// TODO: Check the syntax for defining this function
+// executorSchema.getIdFromUsername = new function(username) {
+	
+// }
 
 const Executors = mongoose.model('Executors', executorsSchema); 
 module.exports = Executors;

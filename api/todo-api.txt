@@ -1,0 +1,8 @@
+TODO:
+Figure out the syntax for adding a function to a schema. FOr example,
+I want to be able to type the following:
+
+	var execId = Executor.getIdByUsername("Bob");
+
+See the executor-schema.js file; I think I remember that it needs to be done before calling mongoose.model,
+but the syntax is foggy... maybe need a reference to 'this' ? Check mongoose docs

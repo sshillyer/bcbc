@@ -13,6 +13,7 @@ const Vendor = require('../vendors/vendors-schema');
 <baseURL>/executors/
 CRUD handled by GET, POST, PUT, DELETE routes
 ***************************************************************************************/
+
 // GET <baseURL>/executors/
 router.route('/').get((req,res,next) => {
 	// Send back JSON of all executors
@@ -84,10 +85,77 @@ router.route('/').delete((req,res,next) => {
 
 
 /***************************************************************************************
-<baseURL>/executors/
+<baseURL>/executors/{username}/
 CRUD handled by GET, POST, PUT, DELETE routes
 ***************************************************************************************/
 
+// GET <baseURL>/executors/{username}/
+// Retrieve details about an executor
+// TODO: Maybe should be a querystring (which might be handled by our basic GET already)
+//       /executors?username=h4humans   
+router.route('/:username').get((req,res,next) => {
+	// TODO: Implement
+	var username = req.params.username;
+
+	// req.query.username = req.params.username; // try this??
+	// Executors.find(req);
+	// controller.find(req, res, next);
+});
+
+
+// POST <baseURL>/executors/{username}/
+// Invalid route
+router.route('/:username').post((req,res,next) => {
+	// TODO: Test route and write POSTMAN unit test
+	// TODO: Create empty POST unit test and verify works
+	var errorCode = 400; // Look up HTTP respone for 'bad request' or similar
+	var errResponse = {
+		'developerMessage' : "POST requests to */executors/{username} are not allowed. To create new user, POST to /executors/  and to edit, PUT to /executors/{username}",
+		'userMessage': "Error processing form. Please contact site administrator.",
+		'errorCode' : errorCode, 
+		"moreInfo" : "http://github.com/sshillyer/bcbc"
+	};
+
+	res.status(errorCode).json(errResponse);
+});
+
+
+// PUT <baseURL>/executors/{username}/
+// Update the executor with the username in the URI
+router.route('/:username').put((req,res,next) => {
+	// TODO: Implement
+	var username = req.params.username;
+
+	// Find the ObjectID for the executor
+	var execId = 0; // LOGIC GOES HERE
+
+	// Save the ObjectID of the executor found
+	req.params.id = execId; // next call expects this to be where ObjectId is stored
+	
+	// Call controller.update() to let controller handle the work
+	controller.update(req, res, next);
+	
+});
+
+
+// DELETE <baseURL>/executors/{username}/
+// Delete the executor with the username in the URI
+router.route('/:username').delete((req,res,next) => {
+	// TODO: Implement
+	var username = req.params.username;
+
+	// Find the ObjectID for the executor
+	var execId = 0; // LOGIC GOES HERE
+
+	// Save the ObjectID of the executor found
+	req.params.id = execId; // next call expects this to be where ObjectId is stored
+
+	// Use .pull() or .pullall() to delete all references to this Executor from the users that reference it
+	// TODO: Check my users logic in /randomancer-api on github, should work here as well
+
+	// Finally, delete the executor itself
+	controller.remove(req, res, next);
+});
 
 
 module.exports = router;
