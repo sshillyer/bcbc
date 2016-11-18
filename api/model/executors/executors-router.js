@@ -83,6 +83,7 @@ router.route('/').put((req,res,next) => {
 
 // DELETE <baseURL>/executors/
 // Invalid route - send back appropriate error response
+// UNIT TEST STATUS: Passing
 router.route('/').delete((req,res,next) => {
 	// TODO: Test route and write POSTMAN unit test
 	// TODO: Create empty POST unit test and verify works
@@ -105,16 +106,12 @@ CRUD handled by GET, POST, PUT, DELETE routes
 ***************************************************************************************/
 
 // GET <baseURL>/executors/{username}/
-// Retrieve details about an executor
+// Retrieve details about an executor by looking up username
 // TODO: Maybe should be a querystring (which might be handled by our basic GET already)
 //       /executors?username=h4humans   
 router.route('/:username').get((req,res,next) => {
-	// TODO: Implement
-	var username = req.params.username;
-
-	// req.query.username = req.params.username; // try this??
-	// Executors.find(req);
-	// controller.find(req, res, next);
+	req.query.username = req.params.username; // try this??
+	controller.findOne(req, res, next);
 });
 
 
