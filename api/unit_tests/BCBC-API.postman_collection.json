@@ -41,7 +41,7 @@
 			"response": []
 		},
 		{
-			"name": "users/ post",
+			"name": "users/ POST",
 			"request": {
 				"url": "localhost:8080/users",
 				"method": "POST",
@@ -57,23 +57,688 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "newguywithpw",
+							"value": "username",
 							"type": "text",
 							"enabled": true
 						},
 						{
-							"key": "email",
-							"value": "hi@here.org",
+							"key": "name.first",
+							"value": "Robert",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name.last",
+							"value": "Shoemaker",
 							"type": "text",
 							"enabled": true
 						},
 						{
 							"key": "password",
-							"value": "hi",
+							"value": "unsafe",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.email",
+							"value": "bob@shoes.com",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone",
+							"value": "555-555-5555",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "balance",
+							"value": "50",
 							"type": "text",
 							"enabled": true
 						}
 					]
+				},
+				"description": "Get users"
+			},
+			"response": []
+		},
+		{
+			"name": "users/ PUT",
+			"request": {
+				"url": "localhost:8080/users",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "username",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name.first",
+							"value": "Robert",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name.last",
+							"value": "Shoemaker",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "unsafe",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.email",
+							"value": "bob@shoes.com",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone",
+							"value": "555-555-5555",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "balance",
+							"value": "50",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/ DELETE",
+			"request": {
+				"url": "localhost:8080/users",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "usernameUpdated",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name.first",
+							"value": "Robert",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name.last",
+							"value": "Shoemaker",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "unsafe",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.email",
+							"value": "bob@shoes.com",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone",
+							"value": "555-555-5555",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "balance",
+							"value": "50",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/{username} GET",
+			"request": {
+				"url": "localhost:8080/users/username",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "newuser",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "newpass",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "executors/ GET",
+			"request": {
+				"url": "localhost:8080/executors",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "newuser",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "newpass",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Get users"
+			},
+			"response": []
+		},
+		{
+			"name": "executors/ POST",
+			"request": {
+				"url": "localhost:8080/executors",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "amazing2",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name",
+							"value": "Amazing Place of Good",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "need a password",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.street1",
+							"value": "123 Broadway",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.street2",
+							"value": "Ste 300",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.city",
+							"value": "Portland",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.stateAbbrev",
+							"value": "OR",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.zip",
+							"value": "97014",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.email",
+							"value": "a@maze.ing",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone[]",
+							"value": "123-456-7890",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone[]",
+							"value": "098-765-4321",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Get users"
+			},
+			"response": []
+		},
+		{
+			"name": "executors/ POST - MISSING DATA (Expect error message)",
+			"request": {
+				"url": "localhost:8080/executors",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "amazing7",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name",
+							"value": "Amazing Place of Good",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.street1",
+							"value": "123 Broadway",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.street2",
+							"value": "Ste 300",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.city",
+							"value": "Portland",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.stateAbbrev",
+							"value": "OR",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.zip",
+							"value": "97014",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.email",
+							"value": "a@maze.ing",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone[]",
+							"value": "123-456-7890",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone[]",
+							"value": "098-765-4321",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Get users"
+			},
+			"response": []
+		},
+		{
+			"name": "executors/ PUT",
+			"request": {
+				"url": "localhost:8080/executors",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "amazing7",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name",
+							"value": "Amazing Place of Good",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.street1",
+							"value": "123 Broadway",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.street2",
+							"value": "Ste 300",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.city",
+							"value": "Portland",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.stateAbbrev",
+							"value": "OR",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.zip",
+							"value": "97014",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.email",
+							"value": "a@maze.ing",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone[]",
+							"value": "123-456-7890",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone[]",
+							"value": "098-765-4321",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "executors/ DELETE (invalid route)",
+			"request": {
+				"url": "localhost:8080/executors",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "amazing7",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "name",
+							"value": "Amazing Place of Good",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.street1",
+							"value": "123 Broadway",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.street2",
+							"value": "Ste 300",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.city",
+							"value": "Portland",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.stateAbbrev",
+							"value": "OR",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "address.zip",
+							"value": "97014",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.email",
+							"value": "a@maze.ing",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone[]",
+							"value": "123-456-7890",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "contact.phone[]",
+							"value": "098-765-4321",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "executors/{username} GET",
+			"request": {
+				"url": "localhost:8080/executors/amazing5",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "newuser",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "newpass",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "executors/{username} POST",
+			"request": {
+				"url": "localhost:8080/executors/amazing5",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "newuser",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "newpass",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "executors/ PUT",
+			"request": {
+				"url": "localhost:8080/executors/amazing2",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Amazing Place of Good",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "nowihaveapassword",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Get users"
+			},
+			"response": []
+		},
+		{
+			"name": "executors/ DELETE",
+			"request": {
+				"url": "localhost:8080/executors/amazing",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
 				},
 				"description": "Get users"
 			},
