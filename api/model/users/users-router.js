@@ -14,30 +14,33 @@ const Vendor = require('../vendors/vendors-schema');
 CRUD handled by GET, POST, PUT, DELETE routes
 ***************************************************************************************/
 // GET <baseURL>/users/
+// Returns JSON of users
+// UNIT TEST STATUS: Passing.
 router.route('/').get((req,res,next) => {
-	// TODO: Implement
+	// TODO: Re-Implement if necessary. VERY unsafe (returns the password and all data)
+	
+	// Return users collection or whatever is in querystring (e.g /users?password=hi )
+	controller.find(req, res, next);
 });
 
 
 // POST <baseURL>/users/
+// Adds the user in the request.body JSOn to the database
+// UNIT TEST STATUS: Passing.
 router.route('/').post((req, res, next) => {
 	var userName = req.body.username;
 
 	console.log(userName);
 
 	User.findOne( {'username': userName}, function(err, result) {
+		// IF username is not taken, create the user passed in
 		if (!result) {
-
-			// var executorName = req.body.executor;
-
+			// TODO: implement email validation (regex) -- Server side or client side??
+			// TODO: verify email uniqueness -- not in story / requirements that it be unique, ask customer?
 			controller.create(req, res, next);
 			console.log(req.body.email);
-
-			// TODO: implement email validation (regex)
-			// TODO: verify email uniqueness
-
 		}
-
+		// If username is taken, set status and errorMessage sent to user in JSON
 		else // username already taken
 			res.status(400).json({
 				errorMessage: 'Username not unique',
