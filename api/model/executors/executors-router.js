@@ -29,11 +29,11 @@ router.route('/').get((req,res,next) => {
 // POST <baseURL>/executors/
 // Create a new executor entry in database
 // UNIT TEST STATUS: Passing
-// TODO: Verify required fields are passed in (username, name, password) -- see schema
 router.route('/').post((req,res,next) => {
 	var userName = req.body.username;
-	var bodyHasRequiredFields = (req.body.username && req.body.name && req.body.password);
 
+	// Check that required request body fields are not null
+	var bodyHasRequiredFields = (req.body.username && req.body.name && req.body.password);
 	if (bodyHasRequiredFields) {
 		Executor.findOne( {'username': userName}, function(err, result) {
 			// IF username is not taken, create executor with username passed in
@@ -49,7 +49,7 @@ router.route('/').post((req,res,next) => {
 		});
 	}
 
-	// If no body sent, return error message
+	// If no or incomplete body sent, return error message
 	else {
 		// TODO: Create empty POST unit test and verify works
 		var errorCode = 400; // Look up HTTP respone for 'bad request' or similar
