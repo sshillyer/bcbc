@@ -118,8 +118,6 @@ router.route('/:username').get((req,res,next) => {
 // Invalid route
 // UNIT TEST STATUS: Passing
 router.route('/:username').post((req,res,next) => {
-	// TODO: Test route and write POSTMAN unit test
-	// TODO: Create empty POST unit test and verify works
 	var errorCode = 405; // Look up HTTP respone for 'bad request' or similar
 	var errResponse = {
 		'developerMessage' : "POST requests to */executors/{username} are not allowed. To create new user, POST to /executors/  and to edit, PUT to /executors/{username}",
@@ -133,20 +131,26 @@ router.route('/:username').post((req,res,next) => {
 
 
 // PUT <baseURL>/executors/{username}/
-// Update the executor with the username in the URI
+// Update executor document for the executor with the username in the URI
+// UNIT TEST STATUS: Passing.
 router.route('/:username').put((req,res,next) => {
-	// TODO: Implement
-	var username = req.params.username;
+	var userName = req.params.username;
 
-	// Find the ObjectID for the executor
-	var execId = 0; // LOGIC GOES HERE
-
-	// Save the ObjectID of the executor found
-	req.params.id = execId; // next call expects this to be where ObjectId is stored
-	
-	// Call controller.update() to let controller handle the work
-	controller.update(req, res, next);
-	
+	Executor.findOne( {'username': userName}, function(err, result) {
+			// IF username is not taken, create executor with username passed in
+			if (result) {
+				var execId = result._id;
+				console.log("Found executor's id: " + execId);
+				req.params.id = execId;
+				controller.update(req, res, next);
+			}
+			// Otherwise 
+			else {
+				res.status(400).json({
+					errorMessage: 'Username not found',
+				});
+			}
+		});
 });
 
 
