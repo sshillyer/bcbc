@@ -6,18 +6,18 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const executorsSchema = new Schema({
   username: { type: String, required: true },
-  name: { type: String, required: true },
   password: { type: String, required: true },
+  name: { type: String, required: true },
+  contact: {
+  	phone: [String], // allow for multiples?
+  	email: [String], // allow for multiples?
+  },
   address: {
   	street1: {type: String },
   	street2: {type: String },
   	city: {type: String },
   	stateAbbrev: {type: String },
   	zip: {type: Number },
-  },
-  contact: {
-  	phone: [String], // allow for multiples?
-  	email: [String], // allow for multiples?
   },
   benefactors: { type: ObjectId, ref: 'Users'},
 });
@@ -36,7 +36,7 @@ Executors.find(function(err, executors) {
 	if(executors.length) return;
 
 	Executors.create({
-		userName: "h4humans",
+		username: "h4humans",
 		name: "Humans 4 Humans",
 		address: {
 			street1: "123 SW 1st Ave",

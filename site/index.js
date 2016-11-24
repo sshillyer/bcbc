@@ -45,6 +45,25 @@ app.get('/', function(req, res){
 
 
 
+// LOGIN ROUTES
+app.get('/login/executor', function(req, res){
+	var context = {};
+
+	res.render('login-executor', context);
+});
+
+app.post('/login/executor', function(req, res){
+	// send HTTP POST to the BCBC api and make a login-decision, etc.
+
+});
+
+
+// SIGNUP ROUTES
+app.get('/signup/executor', function(req, res) {
+	var context = {};
+
+	res.render('signup-executor', context);
+});
 
 
 
