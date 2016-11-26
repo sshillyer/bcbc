@@ -75,58 +75,22 @@ app.get('/login/user', function(req, res){
 app.post('/login/executor', function(req, res){
 	// send HTTP POST to the BCBC api and make a login-decision, etc.
 	var context = {};
+	var routeSuffix = '/executors/login';
+	var accountType = "Executor";
+	var reroutePage = 'login-executor';
 
-	//send get request to API with username from input
-	var route = baseUrl + '/executors/login';
-
-	request.post(route, {form:{username:req.body.username, password:req.body.password}}, function (err, httpResponse, body){
-		if (err){
-			console.error('ERROR: /login/executor POST failed: ', err);
-			context.errorMessage = "Server error. Please try again.";
-			res.render('login-executor', context);
-		}
-		
-		console.log('Status code: ' + httpResponse.statusCode);
-		
-		if (httpResponse.statusCode == 202) { 
-			// correct username & password
-			context.username = req.body.username;
-			context.type = "Executor";
-			res.render('login-success', context);
-		}
-		else {
-			context.errorMessage = "Invalid username or password";
-			res.render('login-executor', context);
-		}
-	}); 
+	login(req, res, routeSuffix, accountType, reroutePage); 
 });
 
 app.post('/login/user', function(req, res){
 	// send HTTP POST to the BCBC api and make a login-decision, etc.
 	var context = {};
+	var routeSuffix = '/users/login';
+	var accountType = "Beggar";
+	var reroutePage = 'login-user';
 
-	//send get request to API with username from input
-	var route = baseUrl + '/users/login';
+	login(req, res, routeSuffix, accountType, reroutePage); 
 
-	request.post(route, {form:{username:req.body.username, password:req.body.password}}, function (err, httpResponse, body){
-		if (err){
-			return console.error('ERROR: /login/executor POST failed: ', err);
-			context.errorMessage = "Server error. Please try again.";
-			res.render('login-user', context);
-		}
-		console.log('Status code: ' + httpResponse.statusCode);
-		context.login = 0;
-		if (httpResponse.statusCode == 202) { 
-			// correct username & password
-			context.username = req.body.username;
-			context.type = "Beggar";
-			res.render('login-success', context);
-		}
-		else {
-			context.errorMessage = "Invalid username or password";
-			res.render('login-user', context);
-		}
-	});  
 });
 
 
@@ -253,8 +217,7 @@ app.listen(app.get('port'), function(){
 /******************
 * Login Function  *
 ******************/
-function login(routeSuffix, type, reroutePage) {
-
+function login(req, res, routeSuffix, accountType, reroutePage) {
 	// send HTTP POST to the BCBC api and make a login-decision, etc.
 	var context = {};
 
@@ -263,23 +226,21 @@ function login(routeSuffix, type, reroutePage) {
 
 	request.post(route, {form:{username:req.body.username, password:req.body.password}}, function (err, httpResponse, body){
 		if (err){
-			// Re-render the page with the errorMessage set in the context
+			console.error('ERROR: ' + routeSuffix + ' POST failed: ', err);
 			context.errorMessage = "Server error. Please try again.";
 			res.render(reroutePage, context);
-			console.error('ERROR: /login/executor POST failed: ', err);
 		}
-
 		console.log('Status code: ' + httpResponse.statusCode);
-		
+		context.login = 0;
 		if (httpResponse.statusCode == 202) { 
 			// correct username & password
 			context.username = req.body.username;
-			context.type = type;
+			context.type = accountType;
 			res.render('login-success', context);
 		}
 		else {
 			context.errorMessage = "Invalid username or password";
 			res.render(reroutePage, context);
 		}
-	}); 
+	});
 }
