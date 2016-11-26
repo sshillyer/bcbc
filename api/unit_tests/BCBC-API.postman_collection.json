@@ -10,7 +10,7 @@
 		{
 			"name": "users/ GET",
 			"request": {
-				"url": "localhost:8080/users",
+				"url": "52.26.146.27:8080/users",
 				"method": "GET",
 				"header": [
 					{
@@ -43,7 +43,7 @@
 		{
 			"name": "users/ POST",
 			"request": {
-				"url": "localhost:8080/users",
+				"url": "52.26.146.27:8080/users",
 				"method": "POST",
 				"header": [
 					{
@@ -106,7 +106,7 @@
 		{
 			"name": "users/ PUT",
 			"request": {
-				"url": "localhost:8080/users",
+				"url": "52.26.146.27:8080/users",
 				"method": "PUT",
 				"header": [
 					{
@@ -169,7 +169,7 @@
 		{
 			"name": "users/ DELETE",
 			"request": {
-				"url": "localhost:8080/users",
+				"url": "52.26.146.27:8080/users",
 				"method": "DELETE",
 				"header": [
 					{
@@ -232,7 +232,7 @@
 		{
 			"name": "users/{username} GET",
 			"request": {
-				"url": "localhost:8080/users/username",
+				"url": "52.26.146.27:8080/users/username",
 				"method": "GET",
 				"header": [
 					{
@@ -265,7 +265,7 @@
 		{
 			"name": "users/{username}/ POST",
 			"request": {
-				"url": "localhost:8080/users/bob",
+				"url": "52.26.146.27:8080/users/bob",
 				"method": "POST",
 				"header": [
 					{
@@ -328,7 +328,7 @@
 		{
 			"name": "users/{username} PUT",
 			"request": {
-				"url": "localhost:8080/users/username",
+				"url": "52.26.146.27:8080/users/username",
 				"method": "PUT",
 				"header": [
 					{
@@ -367,7 +367,7 @@
 		{
 			"name": "users/{username} DELETE",
 			"request": {
-				"url": "localhost:8080/users/user1",
+				"url": "52.26.146.27:8080/users/user1",
 				"method": "DELETE",
 				"header": [
 					{
@@ -430,7 +430,7 @@
 		{
 			"name": "executors/ GET",
 			"request": {
-				"url": "localhost:8080/executors",
+				"url": "52.26.146.27:8080/executors",
 				"method": "GET",
 				"header": [
 					{
@@ -463,7 +463,7 @@
 		{
 			"name": "executors/ POST",
 			"request": {
-				"url": "localhost:8080/executors",
+				"url": "52.26.146.27:8080/executors",
 				"method": "POST",
 				"header": [
 					{
@@ -550,7 +550,7 @@
 		{
 			"name": "executors/ POST - MISSING DATA (Expect error message)",
 			"request": {
-				"url": "localhost:8080/executors",
+				"url": "52.26.146.27:8080/executors",
 				"method": "POST",
 				"header": [
 					{
@@ -631,7 +631,7 @@
 		{
 			"name": "executors/ PUT",
 			"request": {
-				"url": "localhost:8080/executors",
+				"url": "52.26.146.27:8080/executors",
 				"method": "PUT",
 				"header": [
 					{
@@ -712,7 +712,7 @@
 		{
 			"name": "executors/ DELETE (invalid route)",
 			"request": {
-				"url": "localhost:8080/executors",
+				"url": "52.26.146.27:8080/executors",
 				"method": "DELETE",
 				"header": [
 					{
@@ -793,7 +793,7 @@
 		{
 			"name": "executors/{username} GET",
 			"request": {
-				"url": "localhost:8080/executors/amazing5",
+				"url": "52.26.146.27:8080/executors/amazing5",
 				"method": "GET",
 				"header": [
 					{
@@ -826,7 +826,7 @@
 		{
 			"name": "executors/{username} POST",
 			"request": {
-				"url": "localhost:8080/executors/amazing5",
+				"url": "52.26.146.27:8080/executors/amazing5",
 				"method": "POST",
 				"header": [
 					{
@@ -859,7 +859,7 @@
 		{
 			"name": "executors/ PUT",
 			"request": {
-				"url": "localhost:8080/executors/amazing2",
+				"url": "52.26.146.27:8080/executors/amazing2",
 				"method": "PUT",
 				"header": [
 					{
@@ -892,7 +892,7 @@
 		{
 			"name": "executors/ DELETE",
 			"request": {
-				"url": "localhost:8080/executors/amazing",
+				"url": "52.26.146.27:8080/executors/amazing",
 				"method": "DELETE",
 				"header": [
 					{
@@ -904,6 +904,84 @@
 				"body": {
 					"mode": "urlencoded",
 					"urlencoded": []
+				},
+				"description": "Get users"
+			},
+			"response": []
+		},
+		{
+			"name": "executors/login POST",
+			"request": {
+				"url": "52.26.146.27:8080/executors/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "csb002",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "Asdfasdf89",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Get users"
+			},
+			"response": []
+		},
+		{
+			"name": "users/login POST",
+			"request": {
+				"url": "52.26.146.27:8080/users/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "mcinnisb",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "password",
+							"value": "Abcd1234",
+							"type": "text",
+							"enabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"type": "text",
+							"enabled": true
+						}
+					]
 				},
 				"description": "Get users"
 			},
