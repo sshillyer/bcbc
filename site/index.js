@@ -54,39 +54,43 @@ app.get('/', function(req, res){
 
 
 
-// LOGIN ROUTES
+// LOGIN ROUTES -- Loads the "login" page for executors (the form)
+// Status: Page loads
 app.get('/login/executor', function(req, res){
 	var context = {};
 
 	res.render('login-executor', context);
 });
 
-// LOGIN ROUTES
+// LOGIN ROUTES -- Loads the "login" page for users (the form)
+// Status: Page loads
 app.get('/login/user', function(req, res){
 	var context = {};
 
 	res.render('login-user', context);
 });
 
+
+
 app.post('/login/executor', function(req, res){
 	var context = {};
 
 	//send get request to API with username from input
-	var route = baseUrl + '/executors/login' + req.body.username;
+	var route = baseUrl + '/executors/login';
 	request.post(route, {form:{username:req.body.username}}, function (err, res, body){
 		if (err){
 			return console.error('upload failed:', err);
 		}
-			console.log('upload successful! API responded with:', body);
-			if(req.body.pw === res.body.password){
-				context.username = res.body.username;
-				res.render('home-executor', context);//make handlebars for this
-			}
-			else{
-				context.login = 0;
-				res.render('login-executor', context);
-			}
-		});
+		console.log('upload successful! API responded with:', body);
+		if(req.body.pw === res.body.password){
+			context.username = res.body.username;
+			res.render('home-executor', context);//make handlebars for this
+		}
+		else{
+			context.login = 0;
+			res.render('login-executor', context);
+		}
+	});
 	//compare response password with input password
 
 	//if password correct, load home page (pass executor ID as hidden)
@@ -98,26 +102,26 @@ app.post('/login/user', function(req, res){
 	var context = {};
 
 	//send get request to API with username from input
-	var route = baseUrl + '/users/login' + req.body.username;
-	request.post(route, {form:{username:req.body.username}}, function (err, res, body){
-		if (err){
-			return console.error('upload failed:', err);
-		}
-			console.log('upload successful! API responded with:', body);
-			if(req.body.pw === res.body.password){
-				context.username = res.body.username;
-				res.render('home-user', context);//make handlebars for this
-			}
-			else{
-				context.login = 0;
-				res.render('login-user', context);
-			}
-		});
+	var route = baseUrl + '/users/login';
 
-	//send get request to API with username from input
-	//compare response password with input password
-	//if password correct, load home page (pass executor ID as hidden)
-  
+// TEST CODE
+	request.post(route, {form:{username:req.body.username, password:req.body.password}}, function (err, httpResponse, body){
+		if (err){
+			return console.error('POST failed:', err);
+		}
+		console.log('Status code: ' + httpResponse.statusCode);
+		context.login = 0;
+		if (httpResponse.statusCode == 202) { 
+			// correct username & password
+			context.username = req.body.username;
+			context.type = "Beggar";
+			res.render('login-success', context);
+		}
+		else {
+			context.errorMessage = "Invalid username or password";
+			res.render('login-user', context);
+		}
+	});  
 });
 
 

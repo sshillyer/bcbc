@@ -5,8 +5,8 @@
     <input type="text" class="form-control" id="username" required="true" name="username">
   </div>
   <div class="form-group">
-    <label for="pw">Password:</label>
-    <input type="password" class="form-control" id="pw" required="true" name="pw">
+    <label for="password">Password:</label>
+    <input type="password" class="form-control" id="password" required="true" name="password">
   </div>
   <div class="checkbox">
     <label><input type="checkbox">Remember me</label>
@@ -14,5 +14,10 @@
 
   <button type="submit" class="btn btn-default">Login</button>
 </form>
+{{#if errorMessage }}
+<div class="alert-danger">
+  <p>{{errorMessage}}</p>
+</div>
+{{/if}}
 
 <a href="../signup/user">Sign up</a>
