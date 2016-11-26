@@ -9,6 +9,8 @@ BCBC site
 * Setup middleware *
 ********************/
 
+const baseUrl = 'http://52.26.146.27:8080';
+
 var express = require('express');
 var app = express();
 
@@ -70,7 +72,7 @@ app.post('/login/executor', function(req, res){
 	var context = {};
 
 	//send get request to API with username from input
-	var route = 'http://52.26.146.27:8080/executors/login' + req.body.username;
+	var route = baseUrl + '/executors/login' + req.body.username;
 	request.post(route, {form:{username:req.body.username}}, function (err, res, body){
 		if (err){
 			return console.error('upload failed:', err);
@@ -96,7 +98,7 @@ app.post('/login/user', function(req, res){
 	var context = {};
 
 	//send get request to API with username from input
-	var route = 'http://52.26.146.27:8080/users/login' + req.body.username;
+	var route = baseUrl + '/users/login' + req.body.username;
 	request.post(route, {form:{username:req.body.username}}, function (err, res, body){
 		if (err){
 			return console.error('upload failed:', err);
@@ -148,7 +150,7 @@ app.post('/signup/executor', function(req, res, next) {
 				  },
 				};
 			var postInfo = {
-				url: 'http://52.26.146.27:8080/executors',
+				url: baseUrl + '/executors',
 				method: "POST",
 				json: true,
 				body: formData 
@@ -200,7 +202,7 @@ app.post('/signup/user', function(req, res, next) {
   				//executor: { type: ObjectId, ref: 'Executors'}, //?? add hidden reference to executor on form (send executor id)??
 				};
 			var postInfo = {
-				url: 'http://52.26.146.27:8080/users',
+				url: baseUrl + '/users',
 				method: "POST",
 				json: true,
 				body: formData 
@@ -233,5 +235,3 @@ app.listen(app.get('port'), function(){
               app.get('port') + 
               '; press Ctrl-C to terminate.' );
 });
-
-// my AWS is http://52.26.146.27
