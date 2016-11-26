@@ -8,6 +8,36 @@ const Executor = require('./executors-schema');
 const Vendor = require('../vendors/vendors-schema');
 
 
+// Login route
+router.route('/login').post((req, res, next) => {
+	console.log("WUT UP");
+    var username = req.body.username;
+
+    Executor.findOne({ username: username}, function(err, result) {
+        // If username not found, then we can create the new user
+        if (result) {
+            console.log(result.password);
+            console.log(req.body.password);
+            
+            if (req.body.password == result.password) {
+                res.status(202).json({
+                    'authorized': 'true',
+                });
+            }
+            else {
+                res.status(401).json({
+                    'authorized': 'false'
+                });
+            }
+        }
+        // username was not found, send back error message            
+        else
+            res.status(400).json({
+            errorMessage: 'username or password not found',
+        });
+    });
+});
+
 
 /***************************************************************************************
 <baseURL>/executors/
@@ -181,6 +211,7 @@ router.route('/:username').delete((req,res,next) => {
 		}
 	});
 });
+
 
 
 

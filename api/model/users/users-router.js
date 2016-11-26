@@ -9,6 +9,37 @@ const Vendor = require('../vendors/vendors-schema');
 
 
 
+// Login route
+router.route('/login').post((req, res, next) => {
+	console.log("WUT UP");
+    var username = req.body.username;
+
+    User.findOne({ username: username}, function(err, result) {
+        // If username not found, then we can create the new user
+        if (result) {
+            console.log(result.password);
+            console.log(req.body.password);
+            
+            if (req.body.password == result.password) {
+                res.status(202).json({
+                    'authorized': 'true',
+                });
+            }
+            else {
+                res.status(401).json({
+                    'authorized': 'false'
+                });
+            }
+        }
+        // username was not found, send back error message            
+        else
+            res.status(400).json({
+            errorMessage: 'username or password not found',
+        });
+    });
+});
+
+
 /***************************************************************************************
 <baseURL>/users/
 CRUD handled by GET, POST, PUT, DELETE routes
@@ -28,11 +59,11 @@ router.route('/').get((req,res,next) => {
 // Adds the user in the request.body JSON to the database, returns inserted user
 // UNIT TEST STATUS: Passing.
 router.route('/').post((req, res, next) => {
-	var userName = req.body.username;
+	var username = req.body.username;
 
-	console.log(userName);
+	console.log(username);
 
-	User.findOne( {'username': userName}, function(err, result) {
+	User.findOne( {'username': username}, function(err, result) {
 		// IF username is not taken, create the user passed in
 		if (!result) {
 			// TODO: implement email validation (regex) -- Server side or client side??
@@ -44,7 +75,7 @@ router.route('/').post((req, res, next) => {
 		else {
 		// username already taken
 			res.status(400).json({
-				errorMessage: 'Username not unique',
+				errorMessage: 'username not unique',
 			});
 		}
 	});
@@ -121,9 +152,9 @@ router.route('/:username').post((req,res,next) => {
 // Update users document for the users with the username in the URI
 // UNIT TEST STATUS: Passing.
 router.route('/:username').put((req,res,next) => {
-	var userName = req.params.username;
+	var username = req.params.username;
 
-	User.findOne( {'username': userName}, function(err, result) {
+	User.findOne( {'username': username}, function(err, result) {
 			// IF username is found, update the record with the req.body data
 			if (result) {
 				var execId = result._id;
@@ -134,7 +165,7 @@ router.route('/:username').put((req,res,next) => {
 			// If username not found, return errorMessage JSON 
 			else {
 				res.status(400).json({
-					errorMessage: 'Username not found',
+					errorMessage: 'username not found',
 				});
 			}
 		});
@@ -146,9 +177,9 @@ router.route('/:username').put((req,res,next) => {
 // UNIT TEST STATUS: Passing
 // TODO: Need to ensure we sweep through executors and delete the back-references pointing to their user(s) ObjectID(s)
 router.route('/:username').delete((req,res,next) => {
-	var userName = req.params.username;
+	var username = req.params.username;
 
-	User.findOne( {'username': userName}, function(err, result) {
+	User.findOne( {'username': username}, function(err, result) {
 		// IF username is found, delete references to it in the users collection, then delete the executor
 		if (result) {
 
@@ -163,23 +194,14 @@ router.route('/:username').delete((req,res,next) => {
 		// If username not found, return errorMessage JSON 
 		else {
 			res.status(400).json({
-				errorMessage: 'Username not found',
+				errorMessage: 'username not found',
 			});
 		}
 	});
 });
 
 
-// Potential login route concept
-// router.route('/login').post((req, res, next) => {
-// 		// search for the username
 
-// 		// check that the req.body.password == the username password stored in mongoDB
-
-// 		// if not, return res.status(??).json()
-
-// 		// (Note: on client )
-// });
 
 
 
