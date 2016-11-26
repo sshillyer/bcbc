@@ -67,19 +67,67 @@ app.get('/login/user', function(req, res){
 });
 
 app.post('/login/executor', function(req, res){
-	// send HTTP POST to the BCBC api and make a login-decision, etc.
+	var context = {};
 
+	//send get request to API with username from input
+	var route = 'http://52.26.146.27:8080/executors/login' + req.body.username;
+	request.post(route, {form:{username:req.body.username}}, function (err, res, body){
+		if (err){
+			return console.error('upload failed:', err);
+		}
+			console.log('upload successful! API responded with:', body);
+			if(req.body.pw === res.body.password){
+				context.username = res.body.username;
+				res.render('home-executor', context);//make handlebars for this
+			}
+			else{
+				context.login = 0;
+				res.render('login-executor', context);
+			}
+		});
+	//compare response password with input password
+
+	//if password correct, load home page (pass executor ID as hidden)
+  
+});
+
+app.post('/login/user', function(req, res){
+	// send HTTP POST to the BCBC api and make a login-decision, etc.
+	var context = {};
+
+	//send get request to API with username from input
+	var route = 'http://52.26.146.27:8080/users/login' + req.body.username;
+	request.post(route, {form:{username:req.body.username}}, function (err, res, body){
+		if (err){
+			return console.error('upload failed:', err);
+		}
+			console.log('upload successful! API responded with:', body);
+			if(req.body.pw === res.body.password){
+				context.username = res.body.username;
+				res.render('home-user', context);//make handlebars for this
+			}
+			else{
+				context.login = 0;
+				res.render('login-user', context);
+			}
+		});
+
+	//send get request to API with username from input
+	//compare response password with input password
+	//if password correct, load home page (pass executor ID as hidden)
+  
 });
 
 
 // EXECUTOR SIGNUP ROUTES
+// to do: handle non-unique usernames
 app.get('/signup/executor', function(req, res) {
 	var context = {};
 
 	res.render('signup-executor', context);
 });
 
-app.post('/signup/executor/submit', function(req, res, next) {
+app.post('/signup/executor', function(req, res, next) {
 	var context = {};
 	if (req.body.pw == req.body.verifypw){
 		if (req.body.email == req.body.verifyemail){
@@ -125,13 +173,14 @@ app.post('/signup/executor/submit', function(req, res, next) {
 });
 
 // USER SIGNUP ROUTES
-app.get('/signup/user', function(req, res) {
+// to do: handle non-unique usernames
+app.get('/signup/user', function(req, res) {  
 	var context = {};
 
 	res.render('signup-user', context);
 });
 
-app.post('/signup/user/submit', function(req, res, next) {
+app.post('/signup/user', function(req, res, next) {
 	var context = {};
 	if (req.body.pw == req.body.verifypw){
 		if (req.body.email == req.body.verifyemail){

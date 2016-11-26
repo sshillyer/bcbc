@@ -1,12 +1,12 @@
 <h3>Log In To User Page</h3>
-<form class="form-inline">
+<form class="form-inline" action="/login/user" method="post">
   <div class="form-group">
-    <label for="email">Email Address:</label>
-    <input type="email" class="form-control" id="email">
+    <label for="username">Username:</label>
+    <input type="text" class="form-control" id="username" required="true" name="username">
   </div>
   <div class="form-group">
-    <label for="pwd">Password:</label>
-    <input type="password" class="form-control" id="pwd">
+    <label for="pw">Password:</label>
+    <input type="password" class="form-control" id="pw" required="true" name="pw">
   </div>
   <div class="checkbox">
     <label><input type="checkbox">Remember me</label>
