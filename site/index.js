@@ -36,6 +36,10 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
 // Set port and public folder static content
+// TODO: Extract the port out to a config file
+// TODO: When doing so, also extract out the API's URL and port to a config file
+// TODO: The point of that is that we can include instructions to the TA on how to set it up and direct them to one file
+// 		 where they can change everything
 app.set('port', process.env.PORT || 8055);
 app.use(express.static(__dirname + '/public'));
 
