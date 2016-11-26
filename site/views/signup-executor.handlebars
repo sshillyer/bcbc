@@ -1,10 +1,10 @@
 <h3>Hello from signup-executor</h3>
 
-<form class="">
+<form class="" action = "/signup/executor/submit" method = "post">
 	<!--Username -->
 	<div class="form-group">
 		<label for="username">Username</label>
-		<input type="username" class="form-control" id="username" required="true" pattern=".{5,}" title="Five or more characters">
+		<input type="text" class="form-control" name = "username" id="username" required="true" pattern=".{5,}" title="Five or more characters">
 	</div>
 
 	<!-- Password-->
@@ -16,25 +16,32 @@
 	<!-- Verify Password-->
 	<div class="form-group">
 		<label for="verify-password">Verify Password:</label>
-		<input type="password" class="form-control" id="verify-password" required="true" name="pw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+		<input type="password" class="form-control" id="verify-password" required="true" name="verifypw" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
 	</div>
 
 	<!-- Email Address -->
 	<div class="form-group">
-		<label for="email">Email Address:</label>
-		<input type="email" class="form-control" id="email" required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+		<label for="email">Email Address (Format: stuff@stuff.com):</label>
+		<input type="email" class="form-control" id="email" name = "email" required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
 	</div>
+
 
 	<!-- Verify Email Address -->
 	<div class="form-group">
 		<label for="verify-email">Verify Email Address:</label>
-		<input type="verify-email" class="form-control" id="verify-email" required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+		<input type="email" class="form-control" id="verify-email" name = "verifyemail" required="true" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+	</div>
+
+	<!-- Phone Number -->
+	<div class="form-group">
+		<label for="phone">Phone Number (Format: (999)999-9999):</label>
+		<input type= "tel" class="form-control" id="phone" name = "phone" required="true" pattern="[\(]\d{3}[\)]\d{3}[\-]\d{4}" >
 	</div>
 
 	<!-- Public Name -->
 	<div class="form-group">
 		<label for="public-name">Public Name</label>
-		<input type="public-name" class="form-control" id="public-name" required="true">
+		<input type="text" class="form-control" id="public-name" name ="pName" required="true">
 	</div>	
 
 
@@ -43,25 +50,25 @@
 	<!-- street1 -->
 	<div class="form-group">
 		<label for="street1">Address Line 1</label>
-		<input type="street1" class="form-control" id="street1">
+		<input type="text" class="form-control" id="street1" name = "street1">
 	</div>
 
 	<!-- street2 -->
 	<div class="form-group">
 		<label for="street2">Address Line 2</label>
-		<input type="street2" class="form-control" id="street2">
+		<input type="text" class="form-control" id="street2" name = "street2">
 	</div>
 
 	<!-- City -->
 	<div class="form-group">
 		<label for="city">City</label>
-		<input type="city" class="form-control" id="city">
+		<input type ="text" class="form-control" id="city" name = "city">
 	</div>
 
 	<!-- State -->
 	<div class="form-group">
 		<label for="state">State</label>
-		<select class="form-control" id="stateAbbrev">
+		<select name="state" class="form-control" id="stateAbbrev" >
 			<option value="AL">Alabama</option>
 			<option value="AK">Alaska</option>
 			<option value="AZ">Arizona</option>
@@ -119,19 +126,8 @@
 	<!--ZIP -->
 	<div class="form-group">
 		<label for="zip">ZIP Code</label>
-		<input type="zip" class="form-control" id="zip" pattern="[0-9]{4}" title="Four digit zip code">
+		<input type="text" class="form-control" id="zip" name = "zip" pattern="[0-9]{5}" title="Five digit zip code">
 	</div>
 
 <button type="submit" class="btn btn-default">Create Executor Account</button>
 </form>
-
-
-
-
-
-
-	<!-- -->
-	<div class="form-group">
-		<label for=""></label>
-		<input type="" class="form-control" id="">
-	</div>

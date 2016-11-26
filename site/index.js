@@ -12,15 +12,22 @@ BCBC site
 var express = require('express');
 var app = express();
 
-// Import bod-parser
+// Import body-parser
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+// Import form-data
+var FormData = require('form-data');
+
+// Import request
+var request = require('request');
 
 // Set up handlebars
 var handlebars = require('express-handlebars').create({
 	defaultLayout:'main'
 });
+
 
 
 app.engine('handlebars', handlebars.engine);
@@ -65,6 +72,50 @@ app.get('/signup/executor', function(req, res) {
 	res.render('signup-executor', context);
 });
 
+app.post('/signup/executor/submit', function(req, res, next) {
+	var context = {};
+	if (req.body.pw == req.body.verifypw){
+		if (req.body.email == req.body.verifyemail){
+			var formData = {
+				username: req.body.username,
+				password: req.body.pw,
+				name: req.body.pName,
+				contact: {
+				  	phone: req.body.phone, 
+				  	email: req.body.email, 
+				  },
+				address: {
+					street1: req.body.street1,
+					street2: req.body.street2,
+					city: req.body.city,
+					stateAbbrev: req.body.state,
+					zip: req.body.zip,
+				  },
+				};
+			var postInfo = {
+				url: 'http://52.26.146.27:8080/executors',
+				method: "POST",
+				json: true,
+				body: formData 
+			};
+
+			request(postInfo, function (err, res, body){
+				if (err){
+					return console.error('upload failed:', err);
+				}
+				console.log('upload successful! API responded with:', body);
+			});
+		}
+		else{
+			console.log("emails are not the same");
+		}
+	}
+	else{
+		console.log("passwords are not the same");
+	}
+	console.log(formData);
+	res.render('/login/executor');
+});
 
 
 
