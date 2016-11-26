@@ -59,13 +59,20 @@ app.get('/login/executor', function(req, res){
 	res.render('login-executor', context);
 });
 
+// LOGIN ROUTES
+app.get('/login/user', function(req, res){
+	var context = {};
+
+	res.render('login-user', context);
+});
+
 app.post('/login/executor', function(req, res){
 	// send HTTP POST to the BCBC api and make a login-decision, etc.
 
 });
 
 
-// SIGNUP ROUTES
+// EXECUTOR SIGNUP ROUTES
 app.get('/signup/executor', function(req, res) {
 	var context = {};
 
@@ -117,6 +124,56 @@ app.post('/signup/executor/submit', function(req, res, next) {
 	res.render('/login/executor');
 });
 
+// USER SIGNUP ROUTES
+app.get('/signup/user', function(req, res) {
+	var context = {};
+
+	res.render('signup-user', context);
+});
+
+app.post('/signup/user/submit', function(req, res, next) {
+	var context = {};
+	if (req.body.pw == req.body.verifypw){
+		if (req.body.email == req.body.verifyemail){
+			var formData = {
+				username: req.body.username,
+  				name: {
+  					first: req.body.fName,
+  					last: req.body.lName,
+	  				middle: req.body.mName,
+	  				alias: req.body.alias,
+  				},
+  				password: req.body.pw,
+  				contact: {
+  					email:  req.body.email,
+  					phone: req.body.phone,	
+  		        },
+  				//executor: { type: ObjectId, ref: 'Executors'}, //?? add hidden reference to executor on form (send executor id)??
+				};
+			var postInfo = {
+				url: 'http://52.26.146.27:8080/users',
+				method: "POST",
+				json: true,
+				body: formData 
+			};
+
+			request(postInfo, function (err, res, body){
+				if (err){
+					return console.error('upload failed:', err);
+				}
+				console.log('upload successful! API responded with:', body);
+			});
+		}
+		else{
+			console.log("emails are not the same");
+		}
+	}
+	else{
+		console.log("passwords are not the same");
+	}
+	console.log(formData);
+	res.render('login-user');
+});
 
 
 /******************
