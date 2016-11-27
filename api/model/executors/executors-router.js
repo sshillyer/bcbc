@@ -6,6 +6,39 @@ const router = new Router();
 const User = require('../users/users-schema');
 const Executor = require('./executors-schema');
 const Vendor = require('../vendors/vendors-schema');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
+
+
+// Route to get all users for an executor
+router.route('/getUsers').post((req,res,next)=>{
+
+	//Getting information about executor
+	Executor.findOne({'username': req.body.executor}, function(err, result){
+
+		if (result){
+		
+			var execId = result._id;
+			var _id = mongoose.mongo.ObjectId(execId);
+			User.find({'executor': _id}, function(err, result2) {
+				//Finding all users for given executor
+				if (result2) {
+					res.status(200).json(result2);
+				}
+				//If executor does not exist, set status and errorMessage sent to user in JSON
+				else {
+				// username already taken
+					res.status(400).json({
+						errorMessage: 'Executor does not exist',
+					});
+				}
+			}) ;
+		}
+
+		
+	});
+
+});
 
 
 // Login route
@@ -211,6 +244,7 @@ router.route('/:username').delete((req,res,next) => {
 		}
 	});
 });
+
 
 
 

@@ -8,6 +8,7 @@ BCBC site
 /*******************
 * Setup middleware *
 ********************/
+//const baseUrl = 'http://localhost:8080';
 
 const baseUrl = 'http://52.26.146.27:8080';
 
@@ -86,6 +87,7 @@ app.post('/login/executor', function(req, res){
 	login(req, res, routeSuffix, accountType, reroutePage); 
 });
 
+//May be unecessary
 app.post('/login/user', function(req, res){
 	// send HTTP POST to the BCBC api and make a login-decision, etc.
 	var context = {};
@@ -108,6 +110,8 @@ app.get('/signup/executor', function(req, res) {
 	res.render('signup-executor', context);
 });
 
+// to do: wait for results before changing screens, if successful, go to log in page, if not, 
+// prompt again for sign up with error-.
 app.post('/signup/executor', function(req, res, next) {
 	var context = {};
 	if (req.body.pw == req.body.verifypw){
@@ -150,14 +154,14 @@ app.post('/signup/executor', function(req, res, next) {
 		console.log("passwords are not the same");
 	}
 	console.log(formData);
-	res.render('/login/executor');
+	res.render('login-executor');
 });
 
 // USER SIGNUP ROUTES
 // to do: handle non-unique usernames
 app.get('/signup/user', function(req, res) {  
 	var context = {};
-
+	context.executor = req.query.executor;
 	res.render('signup-user', context);
 });
 
@@ -178,7 +182,7 @@ app.post('/signup/user', function(req, res, next) {
   					email:  req.body.email,
   					phone: req.body.phone,	
   		        },
-  				//executor: { type: ObjectId, ref: 'Executors'}, //?? add hidden reference to executor on form (send executor id)??
+  				executor: req.body.executor, 
 				};
 			var postInfo = {
 				url: baseUrl + '/users',
@@ -202,7 +206,46 @@ app.post('/signup/user', function(req, res, next) {
 		console.log("passwords are not the same");
 	}
 	console.log(formData);
-	res.render('login-user');
+	res.render('executor-home');
+});
+
+//Manage Users Route
+app.post('/manageUsers', function(req, res){
+	var context = {};
+	context.executor = req.body.executor;
+	var options = {
+		url: baseUrl+'/executors/getUsers',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded'
+		},
+		method: 'post'
+	};
+
+
+	function callback(error, response, body) {
+		if (error){
+			console.error('ERROR: /manageUsers POST failed: ', error);
+			context.errorMessage = "Server error. Please try again.";
+			res.render('executor-home', context)
+		}
+		else{
+			var parsedResponse = JSON.parse(response.body);
+			context.response = parsedResponse;
+			console.log(context.response);
+			res.render('manage-users', context);
+		}
+	}
+
+	request(options, callback);
+
+} );
+
+// LOGOUT ROUTE
+app.get('/logOut', function(req, res) {  
+	var context = {};
+	context.executor = req.query.executor;
+
+	res.render('home', context);
 });
 
 
@@ -240,7 +283,7 @@ function login(req, res, routeSuffix, accountType, reroutePage) {
 			// correct username & password
 			context.username = req.body.username;
 			context.type = accountType;
-			res.render('login-success', context);
+			res.render('executor-home', context);
 		}
 		else {
 			context.errorMessage = "Invalid username or password";

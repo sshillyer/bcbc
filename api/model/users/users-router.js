@@ -6,6 +6,8 @@ const router = new Router();
 const User = require('./users-schema');
 const Executor = require('../executors/executors-schema');
 const Vendor = require('../vendors/vendors-schema');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 
 
@@ -61,24 +63,37 @@ router.route('/').get((req,res,next) => {
 router.route('/').post((req, res, next) => {
 	var username = req.body.username;
 
-	console.log(username);
+	//Getting information about executor
+	Executor.findOne({'username': req.body.executor}, function(err, result){
 
-	User.findOne( {'username': username}, function(err, result) {
-		// IF username is not taken, create the user passed in
-		if (!result) {
-			// TODO: implement email validation (regex) -- Server side or client side??
-			// TODO: verify email uniqueness -- not in story / requirements that it be unique, ask customer?
-			controller.create(req, res, next);
-			console.log(req.body.email);
-		}
-		// If username is taken, set status and errorMessage sent to user in JSON
-		else {
-		// username already taken
-			res.status(400).json({
-				errorMessage: 'username not unique',
+		if (result){
+		
+			var execId = result._id;
+			console.log(execId);
+
+			User.findOne( {'username': username}, function(err, result) {
+				// IF username is not taken, create the user passed in
+				if (!result) {
+					// TODO: implement email validation (regex) -- Server side or client side??
+					// TODO: verify email uniqueness -- not in story / requirements that it be unique, ask customer?
+					
+					// Adding executor id to request to associate user with executor
+					req.body.executor = execId;
+					controller.create(req, res, next);
+				}
+				// If username is taken, set status and errorMessage sent to user in JSON
+				else {
+				// username already taken
+					res.status(400).json({
+						errorMessage: 'username not unique',
+					});
+				}
 			});
 		}
+
+		
 	});
+
 });
 
 

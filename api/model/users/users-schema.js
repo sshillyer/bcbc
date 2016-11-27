@@ -5,7 +5,7 @@ const Schema   = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
 const usersSchema = new Schema({
-  username: { type: String, required: true },
+  username: { type: String },
   name: {
   	first: { type: String},
   	last: { type: String},
