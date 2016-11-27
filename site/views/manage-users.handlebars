@@ -1,0 +1,24 @@
+<h3> Made it to manage users </h3>
+
+<table>
+<tr>
+	<td> Username </td>
+	<td> First Name </td>
+	<td> Last Name </td>
+	<td> Alias </td>
+	<td> Balance </td>
+</tr>
+{{#each response}}
+<tr>
+	<td> {{this.username}}</td>
+	<td> {{this.name.first}}</td>
+	<td>{{this.name.last}}</td>
+	<td>
+	{{this.name.alias}}
+	</td>
+	<td>
+	{{this.balance}}
+	</td>
+</tr>
+{{/each}}
+</table>
