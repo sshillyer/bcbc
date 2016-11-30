@@ -166,6 +166,7 @@ app.get('/signup/user', function(req, res) {
 	res.render('signup-user', context);
 });
 
+// Signup a user -- POST
 app.post('/signup/user', function(req, res, next) {
 	var context = {};
 	context.username = req.body.executor;
@@ -212,38 +213,33 @@ app.post('/signup/user', function(req, res, next) {
 	res.render('executor-home',context);
 });
 
+
 //Manage Users Route
 app.post('/manageUsers', function(req, res){
 	var context = {};
 	context.executor = req.body.executor;
+
+	console.log("req.body.executor inside manageUsers route on site/index.js: " + req.body.executor);
 	context.type = req.body.type;
-	var options = {
-		url: baseUrl+'/executors/getUsers',
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded'
-		},
-		method: 'post'
-	};
+	
+	var route = baseUrl+'/executors/getUsers';
 
-
-
-	function callback(error, response, body) {
-		if (error){
+	request.post(route, {form:{executor:req.body.executor}}, function (err, httpResponse, body){
+		if (err){
 			console.error('ERROR: /manageUsers POST failed: ', error);
 			context.errorMessage = "Server error. Please try again.";
 			res.render('executor-home', context)
 		}
-		else{
-			var parsedResponse = JSON.parse(response.body);
+		if(httpResponse)  {
+			var parsedResponse = JSON.parse(httpResponse.body);
 			context.response = parsedResponse;
 			console.log(context.response);
 			res.render('manage-users', context);
 		}
-	}
+	});
+});
 
-	request(options, callback);
 
-} );
 
 // LOGOUT ROUTE
 app.get('/logOut', function(req, res) {  
@@ -282,7 +278,8 @@ function login(req, res, routeSuffix, accountType, reroutePage) {
 			context.errorMessage = "Server error. Please try again.";
 			res.render(reroutePage, context);
 		}
-		console.log('Status code: ' + httpResponse.statusCode);
+		if(httpResponse) 
+			console.log('Status code: ' + httpResponse.statusCode);
 		context.login = 0;
 		if (httpResponse.statusCode == 202) { 
 			// correct username & password

@@ -2,22 +2,22 @@
 <p>Hi, {{username}}! You have logged in as a '{{type}}'</p>
 <div>
 <form action = "/signup/user" method = "get">
-<input type = "hidden" name = "executor" value = {{username}}>
-<input type = "hidden" name = "type" value = {{type}}>
+<input type = "hidden" name = "executor" value="{{username}}"">
+<input type = "hidden" name = "type" value="{{type}}">
 <input type = "submit" class = "btn btn-default" value = "Add a User"></input>
 </form>
 </div>
 <div>
-<form action = "/manageUsers" method = "post">
-<input type = "hidden" name = "executor" value = {{username}}>
-<input type = "hidden" name = "type" value = {{type}}>
-<input type = "submit" class = "btn btn-default" value = "Manage Users"></input>
+<form action="/manageUsers" method = "post">
+<input type="hidden" name="executor" value ="{{username}}"">
+<input type="hidden" name="type" value ={{type}}>
+<input type="submit" class="btn btn-default" value="Manage Users"></input>
 </form>
 </div>
 </br>
 <div>
-<a href = "/logOut"> 
-<button type = "button" class = "btn btn-default">Log Out</button>
+<a href="/logOut"> 
+<button type="button" class="btn btn-default">Log Out</button>
 </a>
 </div>
 
