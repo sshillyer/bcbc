@@ -3,12 +3,14 @@
 <div>
 <form action = "/signup/user" method = "get">
 <input type = "hidden" name = "executor" value = {{username}}>
+<input type = "hidden" name = "type" value = {{type}}>
 <input type = "submit" class = "btn btn-default" value = "Add a User"></input>
 </form>
 </div>
 <div>
 <form action = "/manageUsers" method = "post">
 <input type = "hidden" name = "executor" value = {{username}}>
+<input type = "hidden" name = "type" value = {{type}}>
 <input type = "submit" class = "btn btn-default" value = "Manage Users"></input>
 </form>
 </div>

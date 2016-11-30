@@ -8,9 +8,9 @@ BCBC site
 /*******************
 * Setup middleware *
 ********************/
-//const baseUrl = 'http://localhost:8080';
+const baseUrl = 'http://localhost:8080';
 
-const baseUrl = 'http://52.26.146.27:8080';
+//const baseUrl = 'http://52.26.146.27:8080';
 
 var express = require('express');
 var app = express();
@@ -162,11 +162,14 @@ app.post('/signup/executor', function(req, res, next) {
 app.get('/signup/user', function(req, res) {  
 	var context = {};
 	context.executor = req.query.executor;
+	context.type = req.query.type;
 	res.render('signup-user', context);
 });
 
 app.post('/signup/user', function(req, res, next) {
 	var context = {};
+	context.username = req.body.executor;
+	context.type = req.body.type;
 	if (req.body.pw == req.body.verifypw){
 		if (req.body.email == req.body.verifyemail){
 			var formData = {
@@ -206,13 +209,14 @@ app.post('/signup/user', function(req, res, next) {
 		console.log("passwords are not the same");
 	}
 	console.log(formData);
-	res.render('executor-home');
+	res.render('executor-home',context);
 });
 
 //Manage Users Route
 app.post('/manageUsers', function(req, res){
 	var context = {};
 	context.executor = req.body.executor;
+	context.type = req.body.type;
 	var options = {
 		url: baseUrl+'/executors/getUsers',
 		headers: {
@@ -220,6 +224,7 @@ app.post('/manageUsers', function(req, res){
 		},
 		method: 'post'
 	};
+
 
 
 	function callback(error, response, body) {

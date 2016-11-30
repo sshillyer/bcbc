@@ -43,7 +43,6 @@ router.route('/getUsers').post((req,res,next)=>{
 
 // Login route
 router.route('/login').post((req, res, next) => {
-	console.log("WUT UP");
     var username = req.body.username;
 
     Executor.findOne({ username: username}, function(err, result) {
