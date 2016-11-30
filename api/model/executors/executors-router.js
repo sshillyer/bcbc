@@ -14,25 +14,34 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 router.route('/getUsers').post((req,res,next)=>{
 
 	//Getting information about executor
-	Executor.findOne({'username': req.body.executor}, function(err, result){
+	Executor.findOne({'username': req.body.executor}, function(err, execResult){
 
-		if (result){
-		
-			var execId = result._id;
-			var _id = mongoose.mongo.ObjectId(execId);
-			User.find({'executor': _id}, function(err, result2) {
+		if (execResult){
+			console.log(execResult.toObject());
+			var execResultJson = execResult.toObject();
+			var execId = execResultJson._id;
+			console.log(execId);
+			
+			User.find({'executor': execId}, function(err, userResult) {
 				//Finding all users for given executor
-				if (result2) {
-					res.status(200).json(result2);
+				if (userResult) {
+					console.log("userResult found:");
+					console.log(userResult);
+					res.status(200).json(userResult);
 				}
 				//If executor does not exist, set status and errorMessage sent to user in JSON
 				else {
+					console.log("userResult not found:\n");
 				// username already taken
 					res.status(400).json({
 						errorMessage: 'Executor does not exist',
 					});
 				}
-			}) ;
+			});
+		}
+
+		else {
+			console.log("getusers is faliing!!");
 		}
 
 		
