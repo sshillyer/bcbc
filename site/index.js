@@ -226,7 +226,7 @@ app.post('/manageUsers', function(req, res){
 
 	request.post(route, {form:{executor:req.body.executor}}, function (err, httpResponse, body){
 		if (err){
-			console.error('ERROR: /manageUsers POST failed: ', error);
+			console.log('ERROR: /manageUsers POST failed: ', err);
 			context.errorMessage = "Server error. Please try again.";
 			res.render('executor-home', context)
 		}
@@ -238,6 +238,69 @@ app.post('/manageUsers', function(req, res){
 		}
 	});
 });
+
+
+// Edit user page
+app.post('/editUser', function(req, res){
+	var context = {};
+	var username = req.body.username;
+	var executor = req.body.executor;
+	// Debug console echos
+	if (username) console.log("username is " + username);
+	if (executor) console.log("executor name is " + executor);
+	// End Debug console echos
+
+	// Setup the URL to send and echo to console on site server
+	var route = baseUrl + '/users/' + username;
+	console.log('Directing to api route: ' + route);
+
+	// Send get request, then set context and render the edit-user page
+	request.get(route, {}, function(request, response) {
+		console.log(response.statusCode)
+		if(response.body) console.log(response.body);
+
+		context.executor = req.body.executor;
+		var parsedResponse = JSON.parse(response.body);
+		context.response = parsedResponse;
+		res.render('edit-user', context);
+	});
+
+	return;
+});
+
+// TODO: Implement this method. Called in edit-user.handlebars upon clicking the 'save' button
+app.post('/saveUser', function(req, res){
+	var context = {};
+	var username = req.body.username;
+	var executor = req.body.executor;
+
+
+
+	return;
+});
+
+
+// TODO: Build .handlebars page for donors at some point (part 6 of priority list)
+// Issues to address: We would need to get current balance before updating OR have access to the 
+// current balance before passing in the new balance. 
+// Update Balance route
+// app.post('/updateBalance', function(req, res){
+// 	var context = {};
+// 	var context.donorUsername = req.body.donorUsername; // Saving our state of logged in user
+	
+// 	// Variables to send in
+// 	var doneeUsername = req.body.doneeUsername;
+// 	var amountChange = req.body.amount; // could be negative or positive
+// 	// TODO: Cast amountChange to an integer?? I think mongoose does automagically
+
+// 	var route = baseUrl + '/users/' + doneeUsername;
+
+
+// 	request.put(route, {form:{balance: req.body.amount})
+
+// 	res.render('donor-home', context);
+// });
+
 
 
 
@@ -278,18 +341,19 @@ function login(req, res, routeSuffix, accountType, reroutePage) {
 			context.errorMessage = "Server error. Please try again.";
 			res.render(reroutePage, context);
 		}
-		if(httpResponse) 
+		if(httpResponse) {
 			console.log('Status code: ' + httpResponse.statusCode);
-		context.login = 0;
-		if (httpResponse.statusCode == 202) { 
-			// correct username & password
-			context.username = req.body.username;
-			context.type = accountType;
-			res.render('executor-home', context);
-		}
-		else {
-			context.errorMessage = "Invalid username or password";
-			res.render(reroutePage, context);
+	
+			if (httpResponse.statusCode == 202) { 
+				// correct username & password
+				context.username = req.body.username;
+				context.type = accountType;
+				res.render('executor-home', context);
+			}
+			else {
+				context.errorMessage = "Invalid username or password";
+				res.render(reroutePage, context);
+			}
 		}
 	});
 }
