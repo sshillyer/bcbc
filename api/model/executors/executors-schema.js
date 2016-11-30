@@ -19,7 +19,7 @@ const executorsSchema = new Schema({
   	stateAbbrev: {type: String },
   	zip: {type: Number },
   },
-  benefactors: { type: ObjectId, ref: 'Users'},
+  benefactors: { type: ObjectId, ref: 'Users'}, // NOTE: THIS IS NOT BEING USED
 });
 
 // TODO: Check the syntax for defining this function
