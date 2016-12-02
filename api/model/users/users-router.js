@@ -13,7 +13,6 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 
 // Login route
 router.route('/login').post((req, res, next) => {
-	console.log("WUT UP");
     var username = req.body.username;
 
     User.findOne({ username: username}, function(err, result) {
@@ -65,9 +64,7 @@ router.route('/').post((req, res, next) => {
 
 	//Getting information about executor
 	Executor.findOne({'username': req.body.executor}, function(err, result){
-
 		if (result){
-		
 			var execId = result._id;
 			console.log(execId);
 
@@ -81,6 +78,7 @@ router.route('/').post((req, res, next) => {
 					req.body.executor = execId;
 					controller.create(req, res, next);
 				}
+
 				// If username is taken, set status and errorMessage sent to user in JSON
 				else {
 				// username already taken
@@ -90,10 +88,7 @@ router.route('/').post((req, res, next) => {
 				}
 			});
 		}
-
-		
 	});
-
 });
 
 

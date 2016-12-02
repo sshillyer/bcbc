@@ -43,10 +43,7 @@ router.route('/getUsers').post((req,res,next)=>{
 		else {
 			console.log("getusers is faliing!!");
 		}
-
-		
 	});
-
 });
 
 

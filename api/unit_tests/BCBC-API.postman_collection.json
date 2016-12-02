@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "BCBC-API",
-		"_postman_id": "71c7587a-8790-47f7-2e37-1018ee87511a",
+		"_postman_id": "f7b3f900-5028-4364-da26-ff9881ce40fc",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -477,7 +477,7 @@
 					"urlencoded": [
 						{
 							"key": "username",
-							"value": "amazing2",
+							"value": "Aaaaa1",
 							"type": "text",
 							"enabled": true
 						},
@@ -489,7 +489,7 @@
 						},
 						{
 							"key": "password",
-							"value": "need a password",
+							"value": "Aaaaa1",
 							"type": "text",
 							"enabled": true
 						},
@@ -702,6 +702,12 @@
 							"value": "098-765-4321",
 							"type": "text",
 							"enabled": true
+						},
+						{
+							"key": "benefactors[]",
+							"value": "",
+							"type": "text",
+							"enabled": true
 						}
 					]
 				},
@@ -859,7 +865,7 @@
 		{
 			"name": "executors/ PUT",
 			"request": {
-				"url": "52.26.146.27:8080/executors/amazing2",
+				"url": "52.26.146.27:8080/executors/Aaaa1",
 				"method": "PUT",
 				"header": [
 					{
@@ -984,6 +990,103 @@
 					]
 				},
 				"description": "Get users"
+			},
+			"response": []
+		},
+		{
+			"name": "/executors/getUsers POST",
+			"request": {
+				"url": "52.26.146.27:8080/executors/getUsers",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "executor",
+							"value": "Testtest",
+							"type": "text",
+							"enabled": true
+						}
+					]
+				},
+				"description": "Get users"
+			},
+			"response": []
+		},
+		{
+			"name": "users/login POST",
+			"request": {
+				"url": "52.26.146.27:8080/users/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "Shawn123",
+							"type": "text",
+							"enabled": true,
+							"warning": ""
+						},
+						{
+							"key": "password",
+							"value": "Shawn123",
+							"type": "text",
+							"enabled": true,
+							"warning": ""
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "users/login POST - unauthorized",
+			"request": {
+				"url": "52.26.146.27:8080/users/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "Shawn123",
+							"type": "text",
+							"enabled": true,
+							"warning": ""
+						},
+						{
+							"key": "password",
+							"value": "Shawn1234",
+							"type": "text",
+							"enabled": true,
+							"warning": ""
+						}
+					]
+				},
+				"description": "This test should return 'unauthorized'"
 			},
 			"response": []
 		}
