@@ -10,6 +10,6 @@ const config = {
 
 module.exports = config;
 
-
-// cs361-g17w16
+// username: cs361-g17
+// password cs361-g17w16
 // user login: admin  admin361

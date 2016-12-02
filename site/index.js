@@ -186,7 +186,7 @@ app.post('/signup/user', function(req, res, next) {
   					email:  req.body.email,
   					phone: req.body.phone,	
   		        },
-  				// executor: req.body.executor, 
+  				executor: req.body.executor, 
 				};
 			var postInfo = {
 				url: baseUrl + '/users',
