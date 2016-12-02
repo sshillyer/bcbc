@@ -186,7 +186,7 @@ app.post('/signup/user', function(req, res, next) {
   					email:  req.body.email,
   					phone: req.body.phone,	
   		        },
-  				executor: req.body.executor, 
+  				// executor: req.body.executor, 
 				};
 			var postInfo = {
 				url: baseUrl + '/users',
@@ -252,15 +252,15 @@ app.post('/editUser', function(req, res){
 
 	// Setup the URL to send and echo to console on site server
 	var route = baseUrl + '/users/' + username;
-	console.log('Directing to api route: ' + route);
+	console.log('Directing to API POST route: ' + route);
 
 	// Send get request, then set context and render the edit-user page
-	request.get(route, {}, function(request, response) {
-		console.log(response.statusCode)
-		if(response.body) console.log(response.body);
+	request.get(route, {}, function(req2, res2) {
+		console.log(res2.statusCode)
+		if(res2.body) console.log(res2.body);
 
 		context.executor = req.body.executor;
-		var parsedResponse = JSON.parse(response.body);
+		var parsedResponse = JSON.parse(res2.body);
 		context.response = parsedResponse;
 		res.render('edit-user', context);
 	});
@@ -271,10 +271,60 @@ app.post('/editUser', function(req, res){
 // TODO: Implement this method. Called in edit-user.handlebars upon clicking the 'save' button
 app.post('/saveUser', function(req, res){
 	var context = {};
-	var username = req.body.username;
+	var originalUsername = req.body.username;
 	var executor = req.body.executor;
+	console.log("/saveuser has username = " + originalUsername);
+	console.log("/saveuser has executor username = " + executor);
 
+	// Send a PUT to the below route
+	var route = baseUrl + '/users/' + originalUsername;
+	console.log('Directing to API PUT route: ' + route);
 
+	// This reads data from the form
+	var formData = {
+		username: req.body.username,
+			name: {
+				first: req.body.fName,
+				last: req.body.lName,
+				middle: req.body.mName,
+				alias: req.body.alias,
+			},
+			password: req.body.pw,
+			contact: {
+				email:  req.body.email,
+				phone: req.body.phone,	
+	        },
+		};
+	var putInfo = {
+		url: route,
+		method: "PUT",
+		json: true,
+		body: formData 
+	};
+
+	// This sends the put request
+	request(putInfo, function (err, res2, body){
+		if (err){
+			console.error('upload failed:', err);
+		}
+		console.log('Save successful! API responded with:', body);
+		// Reroute back to the manage-users page regardless of result
+		route = baseUrl+'/executors/getUsers';
+		context.executor = req.body.executor;
+		request.post(route, {form:{executor:req.body.executor}}, function (err, httpResponse, body){
+			if (err){
+				console.log('ERROR: /manageUsers POST failed: ', err);
+				context.errorMessage = "Server error. Please try again.";
+				res2.render('executor-home', context)
+			}
+			if(httpResponse)  {
+				var parsedResponse = JSON.parse(httpResponse.body);
+				context.response = parsedResponse;
+				console.log(context.response);
+				res.render('manage-users', context);
+			}
+		});
+	});
 
 	return;
 });
