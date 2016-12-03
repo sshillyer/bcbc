@@ -108,7 +108,12 @@
 	
 <button type="submit" class="btn btn-default">Save Changes</button>
 
-<!-- TODO: Make a back button -->
+
 </form>
 <p> * required fields </p>
 </div>
+
+<form action = "/manageUsers" method = "post">
+<input type = "hidden" value = {{executor}} name = "executor">
+<button type="submit" class="btn btn-default">Cancel</button>
+</form>

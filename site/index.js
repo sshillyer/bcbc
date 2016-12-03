@@ -79,10 +79,17 @@ app.get('/login/user', function(req, res){
 app.post('/login/executor', function(req, res){
 	// send HTTP POST to the BCBC api and make a login-decision, etc.
 	var context = {};
-	var routeSuffix = '/executors/login';
 	var accountType = "Executor";
-	var reroutePage = 'login-executor';
-	login(req, res, routeSuffix, accountType, reroutePage); 
+	if (req.body.back != "1"){
+		var routeSuffix = '/executors/login';
+		var reroutePage = 'login-executor';
+		login(req, res, routeSuffix, accountType, reroutePage); 
+	}
+	else{
+		context.username = req.body.executor;
+		context.type =  accountType;
+		res.render("executor-home", context);
+	}
 });
 
 //May be unecessary
