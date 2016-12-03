@@ -76,14 +76,12 @@ app.get('/login/user', function(req, res){
 });
 
 
-
 app.post('/login/executor', function(req, res){
 	// send HTTP POST to the BCBC api and make a login-decision, etc.
 	var context = {};
 	var routeSuffix = '/executors/login';
 	var accountType = "Executor";
 	var reroutePage = 'login-executor';
-
 	login(req, res, routeSuffix, accountType, reroutePage); 
 });
 
@@ -307,6 +305,33 @@ app.post('/saveUser', function(req, res){
 	});
 
 	return;
+});
+
+//Delete User Route
+app.post('/deleteUser', function(req, res){
+	var context = {};
+	var route = baseUrl + '/users/' + req.body.username
+	
+	request.delete(route, function (err, httpResponse, body){
+		console.log('Delete successful! API responded with:', body);
+		// Reroute back to the manage-users page regardless of result
+		route = baseUrl+'/executors/getUsers';
+		context.executor = req.body.executor;
+		request.post(route, {form:{executor:req.body.executor}}, function (err, httpResponse, body){
+			if (err){
+				console.log('ERROR: /manageUsers POST failed: ', err);
+				context.errorMessage = "Server error. Please try again.";
+				res2.render('executor-home', context)
+			}
+			if(httpResponse)  {
+				var parsedResponse = JSON.parse(httpResponse.body);
+				context.response = parsedResponse;
+				console.log(context.response);
+				res.render('manage-users', context);
+			}
+		});
+	});
+
 });
 
 
