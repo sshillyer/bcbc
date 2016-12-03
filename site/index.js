@@ -114,45 +114,36 @@ app.get('/signup/executor', function(req, res) {
 // prompt again for sign up with error-.
 app.post('/signup/executor', function(req, res, next) {
 	var context = {};
-	if (req.body.pw == req.body.verifypw){
-		if (req.body.email == req.body.verifyemail){
-			var formData = {
-				username: req.body.username,
-				password: req.body.pw,
-				name: req.body.pName,
-				contact: {
-				  	phone: req.body.phone, 
-				  	email: req.body.email, 
-				  },
-				address: {
-					street1: req.body.street1,
-					street2: req.body.street2,
-					city: req.body.city,
-					stateAbbrev: req.body.state,
-					zip: req.body.zip,
-				  },
-				};
-			var postInfo = {
-				url: baseUrl + '/executors',
-				method: "POST",
-				json: true,
-				body: formData 
-			};
+	var formData = {
+		username: req.body.username,
+		password: req.body.pw,
+		name: req.body.pName,
+		contact: {
+		  	phone: req.body.phone, 
+		  	email: req.body.email, 
+		  },
+		address: {
+			street1: req.body.street1,
+			street2: req.body.street2,
+			city: req.body.city,
+			stateAbbrev: req.body.state,
+			zip: req.body.zip,
+		  },
+		};
+	var postInfo = {
+		url: baseUrl + '/executors',
+		method: "POST",
+		json: true,
+		body: formData 
+	};
 
-			request(postInfo, function (err, res, body){
-				if (err){
-					return console.error('upload failed:', err);
-				}
-				console.log('upload successful! API responded with:', body);
-			});
+	request(postInfo, function (err, res, body){
+		if (err){
+			return console.error('upload failed:', err);
 		}
-		else{
-			console.log("emails are not the same");
-		}
-	}
-	else{
-		console.log("passwords are not the same");
-	}
+		console.log('upload successful! API responded with:', body);
+	});
+		
 	console.log(formData);
 	res.render('login-executor');
 });
@@ -171,44 +162,34 @@ app.post('/signup/user', function(req, res, next) {
 	var context = {};
 	context.username = req.body.executor;
 	context.type = req.body.type;
-	if (req.body.pw == req.body.verifypw){
-		if (req.body.email == req.body.verifyemail){
-			var formData = {
-				username: req.body.username,
-  				name: {
-  					first: req.body.fName,
-  					last: req.body.lName,
-	  				middle: req.body.mName,
-	  				alias: req.body.alias,
-  				},
-  				password: req.body.pw,
-  				contact: {
-  					email:  req.body.email,
-  					phone: req.body.phone,	
-  		        },
-  				executor: req.body.executor, 
-				};
-			var postInfo = {
-				url: baseUrl + '/users',
-				method: "POST",
-				json: true,
-				body: formData 
-			};
+	var formData = {
+		username: req.body.username,
+			name: {
+				first: req.body.fName,
+				last: req.body.lName,
+				middle: req.body.mName,
+				alias: req.body.alias,
+			},
+			password: req.body.pw,
+			contact: {
+				email:  req.body.email,
+				phone: req.body.phone,	
+	        },
+			executor: req.body.executor, 
+		};
+	var postInfo = {
+		url: baseUrl + '/users',
+		method: "POST",
+		json: true,
+		body: formData 
+	};
 
-			request(postInfo, function (err, res, body){
-				if (err){
-					return console.error('upload failed:', err);
-				}
-				console.log('upload successful! API responded with:', body);
-			});
+	request(postInfo, function (err, res, body){
+		if (err){
+			return console.error('upload failed:', err);
 		}
-		else{
-			console.log("emails are not the same");
-		}
-	}
-	else{
-		console.log("passwords are not the same");
-	}
+		console.log('upload successful! API responded with:', body);
+	});
 	console.log(formData);
 	res.render('executor-home',context);
 });
@@ -218,7 +199,6 @@ app.post('/signup/user', function(req, res, next) {
 app.post('/manageUsers', function(req, res){
 	var context = {};
 	context.executor = req.body.executor;
-
 	console.log("req.body.executor inside manageUsers route on site/index.js: " + req.body.executor);
 	context.type = req.body.type;
 	
