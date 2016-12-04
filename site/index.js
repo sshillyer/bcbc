@@ -5,6 +5,7 @@ BCBC site
 
 "use strict";
 
+
 /*******************
 * Setup middleware *
 ********************/
@@ -32,7 +33,6 @@ var handlebars = require('express-handlebars').create({
 });
 
 
-
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
@@ -44,14 +44,24 @@ app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 8055);
 app.use(express.static(__dirname + '/public'));
 
+/******************
+ * TESTING:       *
+ *****************/
 
+app.use(function(req, res, next){
+  res.locals.showTests = app.get('env') !== 'production' &&
+    req.query.test === '1';
+  next();
+});
 
 /*******************
 * ROUTES:          *
 ********************/
 
 app.get('/', function(req, res){
-	var context = {};
+	var context = {
+          pageTestScript: '/qa/tests-home.js'
+        };
 
 	res.render('home', context);
 
