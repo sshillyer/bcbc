@@ -5,6 +5,7 @@ BCBC site
 
 "use strict";
 
+
 /*******************
 * Setup middleware *
 ********************/
@@ -32,7 +33,6 @@ var handlebars = require('express-handlebars').create({
 });
 
 
-
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
@@ -44,14 +44,24 @@ app.set('view engine', 'handlebars');
 app.set('port', process.env.PORT || 8055);
 app.use(express.static(__dirname + '/public'));
 
+/******************
+ * TESTING:       *
+ *****************/
 
+app.use(function(req, res, next){
+  res.locals.showTests = app.get('env') !== 'production' &&
+    req.query.test === '1';
+  next();
+});
 
 /*******************
 * ROUTES:          *
 ********************/
 
 app.get('/', function(req, res){
-	var context = {};
+	var context = {
+          pageTestScript: '/qa/tests-home.js'
+        };
 
 	res.render('home', context);
 
@@ -62,7 +72,9 @@ app.get('/', function(req, res){
 // LOGIN ROUTES -- Loads the "login" page for executors (the form)
 // Status: Page loads
 app.get('/login/executor', function(req, res){
-	var context = {};
+	var context = {
+		pageTestScript: '/qa/tests-login-executor.js'
+	};
 
 	res.render('login-executor', context);
 });
@@ -78,7 +90,9 @@ app.get('/login/user', function(req, res){
 
 app.post('/login/executor', function(req, res){
 	// send HTTP POST to the BCBC api and make a login-decision, etc.
-	var context = {};
+	var context = {
+		pageTestScript: '/qa/tests-login-executor.js'
+	};
 	var accountType = "Executor";
 	if (req.body.back != "1"){
 		var routeSuffix = '/executors/login';
@@ -110,7 +124,9 @@ app.post('/login/user', function(req, res){
 // EXECUTOR SIGNUP ROUTES
 // to do: handle non-unique usernames
 app.get('/signup/executor', function(req, res) {
-	var context = {};
+	var context = {
+		pageTestScript: '/qa/test-signup-executor.js'
+	};
 
 	res.render('signup-executor', context);
 });
@@ -202,7 +218,9 @@ app.post('/signup/user', function(req, res, next) {
 
 //Manage Users Route
 app.post('/manageUsers', function(req, res){
-	var context = {};
+	var context = {
+		pageTestScript: '/qa/test-manageusers.js'
+	};
 	context.executor = req.body.executor;
 	console.log("req.body.executor inside manageUsers route on site/index.js: " + req.body.executor);
 	context.type = req.body.type;

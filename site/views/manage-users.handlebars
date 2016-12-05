@@ -1,7 +1,7 @@
 <h1> Manage Users </h1>
 {{#each response}}
 <div class="table-responsive">
-<table class="table-striped">
+<table id="usertable" class="table-striped">
 	<th>
 		{{this.username}}
 	</th>
@@ -54,7 +54,7 @@
 </table>
 {{/each}}
 <form action="/login/executor" method="post" > 
-	<button type="submit" class="btn btn-default">Back</button>
+	<button type="submit" id="back" class="btn btn-default">Back</button>
 	<input hidden="true" value="1" name="back">
 	<input hidden="true" value="{{executor}}" name="executor">
 </form>
